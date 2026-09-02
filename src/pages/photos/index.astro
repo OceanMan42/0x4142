@@ -35,7 +35,6 @@ const photos = (await getCollection("photos", ({ data }) => !data.draft)).sort(
               src={photo.data.image}
               alt={photo.data.title}
               width={1600}
-              height={1600}
             />
             {photo.data.description && (
                 <figcaption>{photo.data.description}</figcaption>
@@ -152,7 +151,10 @@ const photos = (await getCollection("photos", ({ data }) => !data.draft)).sort(
 
   const showSlide = (index: number) => {
     for (const slide of slides)
-      slide.toggleAttribute("data-active", Number(slide.dataset.index) === index)
+      slide.toggleAttribute(
+        "data-active",
+        Number(slide.dataset.index) === index,
+      )
   }
 
   const open = (index: number) => {
@@ -182,7 +184,10 @@ const photos = (await getCollection("photos", ({ data }) => !data.draft)).sort(
     })
 
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && lightbox?.getAttribute("data-open") === "true")
+    if (
+      event.key === "Escape" &&
+      lightbox?.getAttribute("data-open") === "true"
+    )
       close()
   })
 </script>

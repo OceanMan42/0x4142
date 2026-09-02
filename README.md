@@ -287,6 +287,69 @@ The project schema is defined as follows:
 | `startDate`   | `coerce.date()` | Must be in `YYYY-MM-DD` format.         | Optional |
 | `endDate`     | `coerce.date()` | Must be in `YYYY-MM-DD` format.         | Optional |
 
+### Photos
+
+Add photos in `src/content/photos/` as Markdown files. Each file represents one photo shown in the `/photos` grid; clicking a thumbnail opens it full-size in a lightbox with its caption.
+
+```yml
+---
+title: "Golden hour, Lisbon"
+description: "Shot from the hill above Alfama, October."
+date: 2026-01-01
+image: ./assets/photo.jpg
+tags:
+  - travel
+---
+```
+
+The photo schema is defined as follows:
+
+| Field         | Type (Zod)      | Requirements                                                         | Required |
+| ------------- | ---------------- | ------------------------------------------------------------------- | -------- |
+| `title`       | `string`         | Shown as the image's alt text and lightbox caption fallback.         | Yes      |
+| `description` | `string`         | Shown as the lightbox caption, if present.                           | Optional |
+| `date`        | `coerce.date()`  | Must be in `YYYY-MM-DD` format. Controls sort order (newest first).  | Yes      |
+| `image`       | `image()`        | The photo file itself.                                               | Yes      |
+| `tags`        | `string[]`       | Preferably use kebab-case for these.                                 | Optional |
+| `draft`       | `boolean`        | Defaults to `false` if not provided.                                 | Optional |
+
+### Music
+
+Add tracks in `src/content/music/` as Markdown files. Each file becomes one entry on the `/music` page with an embedded player.
+
+`embedUrl` must be the platform's **embed-flavored** URL, not a normal share link — the page renders it directly into an `<iframe src={embedUrl}>` with no per-provider processing, so it needs to already be embeddable:
+
+- **Spotify**: Share → Embed track/album → copy the `src` from the generated `<iframe>` (looks like `https://open.spotify.com/embed/track/...`).
+- **YouTube**: Share → Embed → copy the `src` (`https://www.youtube.com/embed/VIDEO_ID`).
+- **SoundCloud**: use the "Share" → "Embed" panel, copy the `src` out of the provided `<iframe>` code.
+- **Bandcamp**: use the track/album's "Share/Embed" link, copy the `src` out of the provided `<iframe>` code.
+
+```yml
+---
+title: "Track title"
+artist: "Artist name"
+description: "A short note about the track."
+date: 2026-01-01
+embedUrl: "https://open.spotify.com/embed/track/xxxxxxxxxxxxxxxxxxxxxx"
+image: ./assets/cover.jpg
+tags:
+  - demo
+---
+```
+
+The music schema is defined as follows:
+
+| Field         | Type (Zod)      | Requirements                                                        | Required |
+| ------------- | ---------------- | ---------------------------------------------------------------------- | -------- |
+| `title`       | `string`         | n/a                                                                     | Yes      |
+| `artist`      | `string`         | Omitted from display if not provided (no artist line shown).           | Optional |
+| `description` | `string`         | n/a                                                                     | Optional |
+| `date`        | `coerce.date()`  | Must be in `YYYY-MM-DD` format. Controls sort order (newest first).     | Yes      |
+| `embedUrl`    | `url()`          | Must be an embed-flavored URL — see the platform notes above.          | Yes      |
+| `image`       | `image()`        | Optional cover art shown above the player.                              | Optional |
+| `tags`        | `string[]`       | Preferably use kebab-case for these.                                    | Optional |
+| `draft`       | `boolean`        | Defaults to `false` if not provided.                                   | Optional |
+
 ## License
 
 This project is open source and available under the [MIT License](LICENSE).

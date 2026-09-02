@@ -6,12 +6,11 @@ import type { CollectionEntry } from "astro:content"
 type Props = { track: CollectionEntry<"music"> }
 
 const { track } = Astro.props
-const { title, artist, description, date, embedUrl, image, tags } =
-  track.data
+const { title, artist, description, date, embedUrl, image, tags } = track.data
 ---
 
 <li>
-  {image && <Image src={image} alt="" width={640} height={336} />}
+  {image && <Image src={image} alt="" width={640} />}
   <entry-info>
     <h2>{title}</h2>
     <entry-meta>
@@ -29,7 +28,7 @@ const { title, artist, description, date, embedUrl, image, tags } =
         src={embedUrl}
         title={`Embedded player for ${title}`}
         loading="lazy"
-        allow="autoplay; encrypted-media; clipboard-write; picture-in-picture"
+        allow="autoplay; encrypted-media; picture-in-picture"
         allowfullscreen
       ></iframe>
     </entry-embed>
