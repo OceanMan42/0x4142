@@ -1,0 +1,108 @@
+---
+import { formatDate } from "@/lib/utils"
+import { Image } from "astro:assets"
+import type { CollectionEntry } from "astro:content"
+
+type Props = { track: CollectionEntry<"music"> }
+
+const { track } = Astro.props
+const { title, artist, description, date, embedUrl, image, tags } =
+  track.data
+---
+
+<li>
+  {image && <Image src={image} alt="" width={640} height={336} />}
+  <entry-info>
+    <h2>{title}</h2>
+    <entry-meta>
+      {artist && <track-artist>{artist}</track-artist>}
+      <time datetime={date.toISOString()}>{formatDate(date)}</time>
+      {tags && tags.length > 0 && (
+          <entry-tags>
+            {tags.map((tag) => <span>#{tag}</span>)}
+          </entry-tags>
+        )}
+    </entry-meta>
+    {description && <p>{description}</p>}
+    <entry-embed>
+      <iframe
+        src={embedUrl}
+        title={`Embedded player for ${title}`}
+        loading="lazy"
+        allow="autoplay; encrypted-media; clipboard-write; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </entry-embed>
+  </entry-info>
+</li>
+
+<style>
+  li {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+
+    > :global(img) {
+      inline-size: 100%;
+      max-inline-size: 28rem;
+      block-size: auto;
+      border-radius: var(--radius-md);
+    }
+
+    entry-info {
+      display: flex;
+      flex-direction: column;
+
+      h2 {
+        font-size: var(--step-1);
+        line-height: calc(var(--leading-offset) + 1em);
+        font-weight: var(--font-weight-medium);
+        color: var(--foreground);
+      }
+
+      entry-meta {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--space-3xs);
+        margin-block-end: var(--space-3xs);
+        font-size: var(--step--1);
+        color: var(--muted-foreground);
+
+        entry-tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: var(--space-3xs);
+
+          span {
+            color: color-mix(
+              in oklab,
+              var(--muted-foreground) 50%,
+              transparent
+            );
+          }
+        }
+
+        track-artist ~ time::before,
+        time ~ entry-tags::before {
+          content: "·";
+          margin-inline-end: var(--space-3xs);
+        }
+      }
+
+      p {
+        color: var(--muted-foreground);
+        margin-block-end: var(--space-2xs);
+      }
+
+      entry-embed {
+        iframe {
+          inline-size: 100%;
+          block-size: 22rem;
+          border: 0;
+          border-radius: var(--radius-md);
+        }
+      }
+    }
+  }
+</style>

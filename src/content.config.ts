@@ -68,4 +68,22 @@ const photos = defineCollection({
     }),
 })
 
-export const collections = { blog, authors, projects, photos }
+const music = defineCollection({
+  loader: glob({
+    pattern: "**/[^_]*.md",
+    base: "./src/content/music",
+  }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      artist: z.string().optional(),
+      description: z.string().optional(),
+      date: z.coerce.date(),
+      embedUrl: z.url(),
+      image: image().optional(),
+      tags: z.array(z.string()).optional(),
+      draft: z.boolean().optional(),
+    }),
+})
+
+export const collections = { blog, authors, projects, photos, music }

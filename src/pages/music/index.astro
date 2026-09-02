@@ -1,0 +1,25 @@
+---
+import MetaPage from "@/components/MetaPage.astro"
+import MusicCard from "@/components/MusicCard.astro"
+import Layout from "@/layouts/Layout.astro"
+import { getCollection } from "astro:content"
+
+const tracks = (await getCollection("music", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+)
+---
+
+<Layout>
+  <MetaPage slot="head" title="Music" />
+  <ul>
+    {tracks.map((track) => <MusicCard track={track} />)}
+  </ul>
+</Layout>
+
+<style>
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-l);
+  }
+</style>
