@@ -108,6 +108,26 @@ schema, and rendered directly into an `<iframe src={embedUrl}>`.
     interacted with, or simply rendered above the iframe — implementation
     detail decided during coding, not a behavior change.
 
+### Homepage (`src/pages/index.astro`)
+
+Replace the template's "erudite" wordplay content (a dictionary-entry
+gimmick on the word "erudite," tied to the original template's name)
+entirely with a personal intro:
+
+- **Intro block**: site name/handle (0x4142), tagline ("Bytes, light,
+  and sound."), a short bio paragraph, and social links (reusing the
+  existing `SocialIcons.astro` component / `SOCIALS` from `consts.ts`
+  — no new component). The bio text will be a clearly-editable
+  placeholder drafted at implementation time (not guessed as final
+  copy) — the user writes their own later directly in
+  `src/pages/index.astro`.
+- **Recent posts**: a heading (e.g. "Recent posts") followed by the
+  latest 5 non-draft blog posts, reusing `getPosts()` (from
+  `src/lib/content.ts`) and `BlogCard.astro` exactly as `/blog/index.astro`
+  does today, just sliced to the first 5. No new component needed.
+- No photos/music previews on the homepage (per decision above) —
+  those stay one click away via nav.
+
 ### Navigation (`src/consts.ts`)
 
 ```ts
@@ -163,6 +183,8 @@ collection's exact shape, and export them from `collections`.
     at least one entry per supported platform used in seed content.
   - All `NAVIGATION` links resolve (`/blog`, `/photos`, `/music`,
     `/projects`).
+  - Homepage renders the intro/bio block and correctly lists the 5
+    most recent non-draft posts, newest first.
   - RSS (`/rss.xml`) and sitemap generation still work (blog-only,
     should be unaffected by these changes).
 
