@@ -253,6 +253,12 @@ The author schema is defined as follows:
 | `mail`     | `email()`                                  | Must be a valid email address.                                                                                                                                           | Optional |
 | `socials`  | `record(string, url())`                    | A map of any label you like to a valid URL. Each label is matched to an icon in `src/components/SocialIcons.astro`.                                                      | Optional |
 
+> [!WARNING]
+> If your site's name looks like a hex number (as `0x4142` does), quote it
+> whenever it appears as a YAML value — e.g. `authors: - "0x4142"` — or the
+> YAML parser will read it as the integer `16706` instead of the string
+> `"0x4142"`, and the build will fail with a schema validation error.
+
 ### Projects
 
 Add projects in `src/content/projects/` as Markdown files:
