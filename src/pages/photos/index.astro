@@ -1,0 +1,188 @@
+---
+import MetaPage from "@/components/MetaPage.astro"
+import Layout from "@/layouts/Layout.astro"
+import { Image } from "astro:assets"
+import { getCollection } from "astro:content"
+
+const photos = (await getCollection("photos", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+)
+---
+
+<Layout>
+  <MetaPage slot="head" title="Photos" />
+  <ul data-photo-grid>
+    {photos.map((photo, i) => (
+        <li>
+          <button
+            type="button"
+            data-photo-trigger
+            data-index={i}
+            aria-label={`View photo: ${photo.data.title}`}
+          >
+            <Image src={photo.data.image} alt="" width={480} height={480} />
+          </button>
+        </li>
+      ))}
+  </ul>
+
+  <photo-lightbox data-open="false">
+    <div data-lightbox-backdrop>
+      <button type="button" data-lightbox-close aria-label="Close">✕</button>
+      {photos.map((photo, i) => (
+          <figure data-lightbox-slide data-index={i}>
+            <Image
+              src={photo.data.image}
+              alt={photo.data.title}
+              width={1600}
+              height={1600}
+            />
+            {photo.data.description && (
+                <figcaption>{photo.data.description}</figcaption>
+              )}
+          </figure>
+        ))}
+    </div>
+  </photo-lightbox>
+</Layout>
+
+<style>
+  [data-photo-grid] {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+    gap: var(--space-2xs);
+    list-style: none;
+
+    li button {
+      display: block;
+      inline-size: 100%;
+      aspect-ratio: 1;
+      padding: 0;
+      border: none;
+      cursor: pointer;
+      overflow: hidden;
+      border-radius: var(--radius-md);
+      background: none;
+
+      :global(img) {
+        inline-size: 100%;
+        block-size: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.2s ease;
+      }
+
+      &:hover :global(img) {
+        transform: scale(1.03);
+      }
+    }
+  }
+
+  photo-lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+
+    &[data-open="true"] {
+      display: block;
+    }
+
+    [data-lightbox-backdrop] {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: color-mix(in oklab, black 80%, transparent);
+      padding: var(--space-m);
+    }
+
+    [data-lightbox-close] {
+      position: absolute;
+      inset-block-start: var(--space-s);
+      inset-inline-end: var(--space-s);
+      color: white;
+      font-size: 1.25rem;
+      line-height: 1;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: var(--space-2xs);
+    }
+
+    [data-lightbox-slide] {
+      display: none;
+      max-inline-size: 100%;
+      max-block-size: 100%;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+
+      &[data-active] {
+        display: flex;
+      }
+
+      :global(img) {
+        max-inline-size: 100%;
+        max-block-size: 80svh;
+        inline-size: auto;
+        block-size: auto;
+        object-fit: contain;
+      }
+
+      figcaption {
+        margin-block-start: var(--space-2xs);
+        color: white;
+        font-size: var(--step--1);
+        text-align: center;
+      }
+    }
+  }
+</style>
+
+<script>
+  const lightbox = document.querySelector<HTMLElement>("photo-lightbox")
+  const slides = [
+    ...document.querySelectorAll<HTMLElement>("[data-lightbox-slide]"),
+  ]
+  const triggers = [
+    ...document.querySelectorAll<HTMLElement>("[data-photo-trigger]"),
+  ]
+
+  const showSlide = (index: number) => {
+    for (const slide of slides)
+      slide.toggleAttribute("data-active", Number(slide.dataset.index) === index)
+  }
+
+  const open = (index: number) => {
+    if (!lightbox) return
+    showSlide(index)
+    lightbox.setAttribute("data-open", "true")
+    document.body.style.overflow = "hidden"
+  }
+
+  const close = () => {
+    if (!lightbox) return
+    lightbox.setAttribute("data-open", "false")
+    document.body.style.overflow = ""
+  }
+
+  for (const trigger of triggers)
+    trigger.addEventListener("click", () => open(Number(trigger.dataset.index)))
+
+  lightbox
+    ?.querySelector("[data-lightbox-close]")
+    ?.addEventListener("click", close)
+
+  lightbox
+    ?.querySelector("[data-lightbox-backdrop]")
+    ?.addEventListener("click", (event) => {
+      if (event.target === event.currentTarget) close()
+    })
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && lightbox?.getAttribute("data-open") === "true")
+      close()
+  })
+</script>
