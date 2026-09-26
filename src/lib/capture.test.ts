@@ -46,7 +46,7 @@ describe("loadCapture", () => {
   })
 
   it("rejects invalid JSON", () => {
-    const root = rootWith({ x: "{ \"version\": 1," })
+    const root = rootWith({ x: '{ "version": 1,' })
     expect(() => loadCapture(root, "x")).toThrow(/invalid JSON/)
   })
 
