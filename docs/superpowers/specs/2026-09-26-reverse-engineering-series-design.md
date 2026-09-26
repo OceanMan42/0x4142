@@ -1,4 +1,4 @@
-# Reverse Engineering from Scratch: series design spec
+# Reverse Engineering: series design spec
 
 Date: 2026-09-26
 
@@ -15,7 +15,7 @@ This spec covers three pieces:
 1. The curriculum (what each part teaches).
 2. Blog-side rendering of captured terminal sessions (a reusable
    `:::capture` directive and the capture file format).
-3. The lab repo for this series (`re-from-scratch-lab`).
+3. The lab repo for this series (`reverse-engineering-lab`).
 
 Writing the individual posts is not covered here beyond parts 0 and 1,
 which are the first deliverables.
@@ -41,9 +41,9 @@ which are the first deliverables.
 ## Curriculum
 
 The series is a blog series (existing subpost support):
-`src/content/blog/re-from-scratch/index.md` is part 0, and each later part
+`src/content/blog/reverse-engineering/index.md` is part 0, and each later part
 is a sibling file ordered with `order`. URLs are
-`/blog/re-from-scratch/<part-slug>`.
+`/blog/reverse-engineering/<part-slug>`.
 
 ### Arc 1: Reading the machine (plain gdb + objdump)
 
@@ -85,7 +85,7 @@ address).
 ## Capture file format (owned by the blog)
 
 Location in the blog: `src/captures/<series>/<part>/<scenario>.json`,
-for example `src/captures/re-from-scratch/part-03/push-pop.json`.
+for example `src/captures/reverse-engineering/part-03/push-pop.json`.
 
 ```json
 {
@@ -118,7 +118,7 @@ schema in `src/lib/capture.ts`.
 Usage in Markdown:
 
 ```md
-:::capture{src="re-from-scratch/part-03/push-pop"}
+:::capture{src="reverse-engineering/part-03/push-pop"}
 :::
 ```
 
@@ -179,13 +179,13 @@ The repo has no test runner yet. Add Vitest as a dev dependency with a
 - Manual check in the browser: stepper controls, keyboard, dark and
   light themes, phone width, JavaScript disabled.
 
-## Lab repo: `re-from-scratch-lab`
+## Lab repo: `reverse-engineering-lab`
 
-Prepared locally at `~/workspace/re-from-scratch-lab` (a sibling of the
+Prepared locally at `~/workspace/reverse-engineering-lab` (a sibling of the
 blog). The user creates the GitHub repo and pushes it.
 
 ```
-re-from-scratch-lab/
+reverse-engineering-lab/
   README.md           how to run the lab, how parts map to folders
   Dockerfile          pinned base image, gcc, gdb, pwndbg, binutils
   Makefile            `make` builds binaries; `make capture BLOG=...`
@@ -205,11 +205,11 @@ re-from-scratch-lab/
   forced on.
 - **Capture flow:** `make capture BLOG=../0x4142` runs every scenario in
   the container and writes JSON into
-  `$BLOG/src/captures/re-from-scratch/`. The captures are then committed
+  `$BLOG/src/captures/reverse-engineering/`. The captures are then committed
   in the blog repo. The blog build never needs Docker or the lab repo.
 - **Drift check:** re-running `make capture` and checking `git diff` in
   the blog shows any output change after a toolchain update.
-- **For readers:** `docker run -it ghcr.io/oceanman42/re-from-scratch-lab`
+- **For readers:** `docker run -it ghcr.io/oceanman42/reverse-engineering-lab`
   or `docker build` from a clone. Part 0 documents both.
 
 ## Build order
