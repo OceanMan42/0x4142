@@ -9,3 +9,6 @@ pnpm-debug.log*
 .env.production
 .DS_Store
 .idea/
+
+# wrangler local state
+.wrangler/
