@@ -1,7 +1,7 @@
 ---
 title: "What Your Compiler Actually Made"
 description: "Pulling apart the ELF file gcc builds from hello world: its header, sections, symbols, and a first look at main in assembly."
-date: 2026-09-26
+date: 2026-09-27
 order: 1
 authors:
   - "0x4142"
@@ -9,7 +9,7 @@ tags:
   - reverse-engineering
   - elf
   - objdump
-draft: true
+draft: false
 ---
 
 The smallest C program worth compiling produces a file of about 16 KB.

@@ -3,6 +3,10 @@
   // Must match the Worker connected to this repo in Workers Builds.
   "name": "0x4142",
   "compatibility_date": "2026-09-27",
+  // Cloudflare creates the DNS record and certificate for the domain.
+  "routes": [{ "pattern": "0x4142.com", "custom_domain": true }],
+  // Kept on for branch preview URLs; canonical links point at 0x4142.com.
+  "workers_dev": true,
   // A fully static site: Astro builds every page into dist/, so there is no
   // Worker script, only assets.
   "assets": {

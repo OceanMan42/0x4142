@@ -1,14 +1,14 @@
 ---
 title: "Reverse Engineering"
 description: "A series that starts from C you already know and ends with you reading, debugging and cracking real x86-64 binaries."
-date: 2026-09-26
+date: 2026-09-27
 authors:
   - "0x4142"
 tags:
   - reverse-engineering
   - gdb
   - x86-64
-draft: true
+draft: false
 ---
 
 You've written C. You've compiled it, run it, maybe chased a segfault or
