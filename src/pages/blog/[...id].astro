@@ -1,4 +1,5 @@
 ---
+import CaptureStepper from "@/components/CaptureStepper.astro"
 import MetaPost from "@/components/MetaPost.astro"
 import PostActions from "@/components/PostActions.astro"
 import ScrollToTop from "@/components/ScrollToTop.astro"
@@ -71,6 +72,7 @@ if (isSubpost(post.id)) {
     )}
   <PostActions slot="actions" prev={prev} next={next} />
   <ScrollToTop floating />
+  <CaptureStepper />
   {rendered.map(({ entry, Content, authors }, i) => (
       <article
         id={i === 0 ? undefined : subpostSlug(entry.id)}

@@ -1,0 +1,132 @@
+---
+---
+
+<style is:global>
+  capture-steps {
+    display: block;
+    margin-block: 1.5rem;
+  }
+
+  capture-frame {
+    display: block;
+  }
+
+  capture-frame[hidden] {
+    display: none;
+  }
+
+  capture-frame + capture-frame {
+    margin-block-start: 1.25rem;
+  }
+
+  capture-steps[data-enhanced] capture-frame + capture-frame {
+    margin-block-start: 0;
+  }
+
+  capture-steps:focus-visible {
+    outline: 2px solid var(--foreground);
+    outline-offset: 4px;
+  }
+
+  .capture-label {
+    margin-block: 0 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    color: var(--muted-foreground);
+  }
+
+  capture-nav {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-block-start: 0.5rem;
+  }
+
+  capture-nav button {
+    padding: 0.25rem 0.75rem;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--foreground);
+    font: inherit;
+    font-size: 0.85em;
+    cursor: pointer;
+  }
+
+  capture-nav button:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+
+  .capture-live {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+</style>
+
+<script>
+  const button = (label: string, text: string) => {
+    const el = document.createElement("button")
+    el.type = "button"
+    el.setAttribute("aria-label", label)
+    el.textContent = text
+    return el
+  }
+
+  for (const steps of document.querySelectorAll<HTMLElement>("capture-steps")) {
+    const frames = [
+      ...steps.querySelectorAll<HTMLElement>(":scope > capture-frame"),
+    ]
+    if (frames.length < 2) continue
+
+    const prev = button("Previous step", "← Prev")
+    const next = button("Next step", "Next →")
+    const nav = document.createElement("capture-nav")
+    const live = document.createElement("span")
+    live.className = "capture-live"
+    live.setAttribute("aria-live", "polite")
+    nav.append(prev, next)
+    steps.append(nav, live)
+
+    let current = 0
+    const show = (index: number, announce: boolean) => {
+      current = index
+      frames.forEach((frame, i) => {
+        frame.hidden = i !== index
+      })
+      prev.disabled = index === 0
+      next.disabled = index === frames.length - 1
+      if (announce) {
+        live.textContent =
+          frames[index].querySelector(".capture-label")?.textContent ?? ""
+      }
+    }
+
+    prev.addEventListener("click", () => show(current - 1, true))
+    next.addEventListener("click", () => show(current + 1, true))
+
+    steps.tabIndex = 0
+    steps.setAttribute("role", "group")
+    steps.setAttribute(
+      "aria-label",
+      `${steps.dataset.title ?? "Terminal"}: use left and right arrow keys to step`,
+    )
+    steps.addEventListener("keydown", (event) => {
+      const target = event.target as HTMLElement
+      if (target !== steps && !nav.contains(target)) return
+      if (event.key === "ArrowLeft" && current > 0) {
+        event.preventDefault()
+        show(current - 1, true)
+      } else if (event.key === "ArrowRight" && current < frames.length - 1) {
+        event.preventDefault()
+        show(current + 1, true)
+      }
+    })
+
+    steps.dataset.enhanced = ""
+    show(0, false)
+  }
+</script>
