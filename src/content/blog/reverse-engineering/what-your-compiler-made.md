@@ -129,9 +129,10 @@ one kind of thing. There are a lot of them:
 :::capture{src="reverse-engineering/part-01/sections"}
 :::
 
-Thirty-seven sections for a five-line program. Most are bookkeeping for the
-linker, the loader and the debugger, and you can ignore them for now. Four
-are worth knowing by name:
+Thirty-six sections for a five-line program (entry `[ 0]` is an empty
+placeholder that every ELF file has). Most are bookkeeping for the linker,
+the loader and the debugger, and you can ignore them for now. Four are
+worth knowing by name:
 
 - **`.text`** holds the machine code. Its flags are `AX`: allocated in
   memory when the program runs, and executable. It starts at `0x401050`,
@@ -157,9 +158,10 @@ A *symbol* is a name with an address attached. `nm` lists them:
 :::capture{src="reverse-engineering/part-01/symbols"}
 :::
 
-The letter in the middle column is the symbol's type: `T` is code in
-`.text`, `D` is `.data`, `B` is `.bss`, `R` is `.rodata`. Lowercase means
-the symbol is local to this file. Three lines are the point:
+The letter in the middle column is the symbol's type: `T` is code (usually
+in `.text`; `_init` and `_fini` live in their own small code sections),
+`D` is initialized data, `B` is `.bss`, `R` is read-only data. Lowercase
+means the symbol is local to this file. Three lines are the point:
 
 - **`0000000000401136 T main`**: your function, in `.text`, at `0x401136`.
 - **`0000000000401050 T _start`**: the entry point from the ELF header.
