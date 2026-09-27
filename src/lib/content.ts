@@ -24,7 +24,10 @@ export function readingTime(body: string): number {
 }
 
 export async function getPosts(): Promise<CollectionEntry<"blog">[]> {
-  const posts = await getCollection("blog", ({ data }) => !data.draft)
+  const posts = await getCollection(
+    "blog",
+    ({ data }) => import.meta.env.DEV || !data.draft,
+  )
   return posts
     .filter((post) => !isSubpost(post.id))
     .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
@@ -35,7 +38,8 @@ export async function getSubposts(): Promise<
 > {
   const posts = await getCollection(
     "blog",
-    ({ id, data }) => !data.draft && id.split("/").length === 2,
+    ({ id, data }) =>
+      (import.meta.env.DEV || !data.draft) && id.split("/").length === 2,
   )
   posts.sort(
     (a, b) =>

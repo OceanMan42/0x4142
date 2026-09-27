@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "title": "push rbp",
+  "frames": [
+    {
+      "label": "before push rbp",
+      "command": "(gdb) info registers rsp rbp",
+      "output": "\u001b[32mrsp\u001b[0m 0x7fffffffe0f0\nrbp 0x0"
+    },
+    {
+      "label": "after push rbp",
+      "command": "(gdb) stepi",
+      "output": "rsp 0x7fffffffe0e8\nrbp 0x0"
+    },
+    {
+      "label": "after mov rbp, rsp",
+      "command": "(gdb) stepi",
+      "output": "rsp 0x7fffffffe0e8\nrbp 0x7fffffffe0e8"
+    }
+  ]
+}

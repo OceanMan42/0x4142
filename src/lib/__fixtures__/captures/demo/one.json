@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "title": "file: what is this?",
+  "frames": [
+    {
+      "label": "file type",
+      "command": "$ file hello",
+      "output": "hello: ELF 64-bit LSB executable, x86-64"
+    }
+  ]
+}

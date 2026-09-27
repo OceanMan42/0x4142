@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "title": "From C to a binary",
+  "frames": [
+    {
+      "label": "the source",
+      "command": "$ cat hello.c",
+      "output": "#include <stdio.h>\n\nint main(void) {\n    printf(\"Hello, world!\\n\");\n    return 0;\n}"
+    },
+    {
+      "label": "the compiler's assembly output",
+      "command": "$ gcc -O0 -fno-pie -masm=intel -fno-asynchronous-unwind-tables -S -o - hello.c",
+      "output": "\t.file\t\"hello.c\"\n\t.intel_syntax noprefix\n\t.text\n\t.section\t.rodata\n.LC0:\n\t.string\t\"Hello, world!\"\n\t.text\n\t.globl\tmain\n\t.type\tmain, @function\nmain:\n\tendbr64\n\tpush\trbp\n\tmov\trbp, rsp\n\tmov\tedi, OFFSET FLAT:.LC0\n\tcall\tputs\n\tmov\teax, 0\n\tpop\trbp\n\tret\n\t.size\tmain, .-main\n\t.ident\t\"GCC: (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\"\n\t.section\t.note.GNU-stack,\"\",@progbits\n\t.section\t.note.gnu.property,\"a\"\n\t.align 8\n\t.long\t1f - 0f\n\t.long\t4f - 1f\n\t.long\t5\n0:\n\t.string\t\"GNU\"\n1:\n\t.align 8\n\t.long\t0xc0000002\n\t.long\t3f - 2f\n2:\n\t.long\t0x3\n3:\n\t.align 8\n4:"
+    },
+    {
+      "label": "the finished binary",
+      "command": "$ file hello",
+      "output": "hello: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=c2389cb890c4ae64ef9b748ff4d79b84c6798306, for GNU/Linux 3.2.0, with debug_info, not stripped"
+    }
+  ]
+}
