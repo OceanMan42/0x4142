@@ -10,6 +10,7 @@ export async function GET(context: APIContext) {
     title: SITE.title,
     description: SITE.description,
     site: context.site!,
+    trailingSlash: false,
     items: items.map((item) => ({
       title: feedTitle(item),
       description: item.post.data.description,

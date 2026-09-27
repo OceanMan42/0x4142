@@ -1,0 +1,16 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  // Must match the Worker connected to this repo in Workers Builds.
+  "name": "0x4142",
+  "compatibility_date": "2026-09-27",
+  // A fully static site: Astro builds every page into dist/, so there is no
+  // Worker script, only assets.
+  "assets": {
+    "directory": "./dist",
+    // Serve src/pages/404.astro with a 404 status for unknown paths.
+    "not_found_handling": "404-page",
+    // Serve /blog/post, and redirect /blog/post/ to it (astro.config.ts sets
+    // trailingSlash: "never" to match).
+    "html_handling": "drop-trailing-slash",
+  },
+}

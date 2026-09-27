@@ -18,6 +18,8 @@ import { headingAnchors } from "./src/lib/heading-anchors"
 export default defineConfig({
   site: "https://astro-erudite.vercel.app",
   compressHTML: true,
+  // Matches html_handling in wrangler.jsonc: pages live at /blog/post.
+  trailingSlash: "never",
   prefetch: { prefetchAll: true },
   integrations: [
     captureCheck("./src/content", CAPTURE_ROOT),
