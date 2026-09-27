@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "title": "The \"hello\" binary",
+  "frames": [{ "label": "run", "command": "$ ./hello", "output": "Hello" }]
+}

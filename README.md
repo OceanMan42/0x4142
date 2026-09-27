@@ -221,8 +221,43 @@ A few authoring features exist that extend beyond standard Markdown:
   :::
   ```
 
+- Terminal captures render recorded terminal sessions from
+  `src/captures/<series>/<part>/<scenario>.json`. A one-frame capture renders
+  as a normal terminal block; a capture with several frames renders as a
+  stepper (previous and next buttons, arrow keys) with changed lines marked.
+  Add `diff="off"` for tools that highlight changes themselves:
+
+  ```markdown
+  :::capture{src="reverse-engineering/part-03/push-pop"}
+  :::
+  ```
+
+  Captures are produced by each series' lab repo, never written by hand. A
+  missing or invalid capture fails the build. After re-capturing, restart
+  `npm run dev` to pick up the new files.
+
 - Math is written as `$inline$` or `$$display$$` $\LaTeX$ and rendered to MathML at build time.
 - Inline code ending in an annotation gets syntax highlighting: `` `const x = 1{:ts}` `` highlights as TypeScript, and `` `text{:.string}` `` paints with the theme's color for a [TextMate scope](https://macromates.com/manual/en/language_grammars).
+
+#### Capture format
+
+Lab repos write this JSON. `version` must be `1`; `frames` needs at least
+one entry. `command` is shown verbatim as the first line (include the
+prompt, such as `$ ` or `(gdb) `; use `""` for no command line). `output`
+may contain ANSI color codes and should stay within 80 columns.
+
+```json
+{
+  "version": 1,
+  "title": "push and pop moving rsp",
+  "frames": [
+    { "label": "before push rbp", "command": "(gdb) stepi", "output": "..." }
+  ]
+}
+```
+
+Paths use lowercase segments: `src/captures/reverse-engineering/part-03/push-pop.json`
+is referenced as `src="reverse-engineering/part-03/push-pop"`.
 
 ### Authors
 
