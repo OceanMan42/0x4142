@@ -6,8 +6,8 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro check && astro build",
+    "dev": "astro dev --force",
+    "build": "astro check && astro build --force",
     "preview": "astro preview",
     "astro": "astro",
     "format": "biome format --write .",

@@ -233,8 +233,10 @@ A few authoring features exist that extend beyond standard Markdown:
   ```
 
   Captures are produced by each series' lab repo, never written by hand. A
-  missing or invalid capture fails the build. After re-capturing, restart
-  `npm run dev` to pick up the new files.
+  missing or invalid capture fails `npm run dev` and `npm run build` at
+  startup. Astro's content cache only tracks the `.md` files, so both
+  scripts pass `--force` to re-render every post from the current captures.
+  After re-capturing, restart `npm run dev` to pick up the new files.
 
 - Math is written as `$inline$` or `$$display$$` $\LaTeX$ and rendered to MathML at build time.
 - Inline code ending in an annotation gets syntax highlighting: `` `const x = 1{:ts}` `` highlights as TypeScript, and `` `text{:.string}` `` paints with the theme's color for a [TextMate scope](https://macromates.com/manual/en/language_grammars).

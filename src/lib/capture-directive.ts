@@ -5,7 +5,7 @@ import type {} from "mdast-util-to-hast"
 import { defineMdastPlugin } from "satteri"
 import { type Capture, changedLines, loadCapture } from "./capture"
 
-const DEFAULT_ROOT = join(
+export const DEFAULT_ROOT = join(
   dirname(fileURLToPath(import.meta.url)),
   "../captures",
 )

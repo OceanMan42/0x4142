@@ -7,7 +7,11 @@ import {
 } from "./src/lib/expressive-code"
 import { temmlMath } from "./src/lib/math"
 import { calloutDirective } from "./src/lib/callout"
-import { captureDirective } from "./src/lib/capture-directive"
+import { captureCheck } from "./src/lib/capture-check"
+import {
+  captureDirective,
+  DEFAULT_ROOT as CAPTURE_ROOT,
+} from "./src/lib/capture-directive"
 import { externalLinks } from "./src/lib/external-links"
 import { headingNamespace } from "./src/lib/heading-namespace"
 import { headingAnchors } from "./src/lib/heading-anchors"
@@ -17,6 +21,7 @@ export default defineConfig({
   compressHTML: true,
   prefetch: { prefetchAll: true },
   integrations: [
+    captureCheck("./src/content", CAPTURE_ROOT),
     sitemap({
       filter: (page) =>
         !/\/blog\/[^/]+\/[^/]+\/?$/.test(page) &&
