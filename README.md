@@ -1,117 +1,47 @@
-![Showcase Card](/public/static/opengraph-image.png)
+# 0x4142
 
-<div align="center">
-
-## astro-erudite
-
-![Stargazers]
-![Astro Version]
-![Dependencies]
-[![License]](LICENSE)
-
-</div>
-
-astro-erudite is [enscribe](https://enscribe.dev)'s opinionated, unstyled static blogging template built with [Astro](https://astro.build/) and native CSS. astro-erudite uses no UI framework, no CSS framework, and contains minimal dependencies.
-
-| ![Preview 1](/public/static/preview-1.png) | ![Preview 2](/public/static/preview-2.png) |
-| ------------------------------------------ | ------------------------------------------ |
-| ![Preview 3](/public/static/preview-3.png) | ![Preview 4](/public/static/preview-4.png) |
-
-> [!IMPORTANT]
-> astro-erudite has recently been updated to v2. To learn what changed and why, read the following blog post: [Introducing astro-erudite v2](https://astro-erudite.vercel.app/blog/introducing-v2). If you're migrating an existing v1 project, see [breaking changes](https://astro-erudite.vercel.app/blog/introducing-v2#breaking-changes).
-
----
-
-## Community examples
-
-Below are some fantastic examples of websites based on this template. If you wish to add your site to this list, open a [pull request](https://github.com/jktrn/astro-erudite/pulls)!
-
-| Site | Author | Tags | Source |
-|-|-|-|-|
-| [enscribe.dev](https://enscribe.dev) | [@jktrn](https://github.com/jktrn) | portfolio, interactive | [→](https://github.com/jktrn/enscribe.dev) |
-| [emile.sh](https://emile.sh) | [@echoghi](https://github.com/echoghi) | minimal, flexoki | [→](https://github.com/echoghi/v5) |
-| [decentparadox.me](https://decentparadox.me) | [@decentparadox](https://github.com/decentparadox) | portfolio, sci-fi | [→](https://github.com/decentparadox/decentparadox.me) |
-| [flocto.github.io](https://flocto.github.io/) | [@flocto](https://github.com/flocto) | blog | [→](https://github.com/flocto/flocto.github.io) |
-| [dumbprism.me](https://www.dumbprism.me/) | [@dumbprism](https://github.com/dumbprism) | portfolio, bento | [→](https://github.com/dumbprism/dumbprism-portfolio) |
-| [hyuki.dev](https://hyuki.dev/) | [@snow0406](https://github.com/snow0406) | minimal, blog | [→](https://github.com/Snow0406/hyuki.dev) |
-| [ldd.cc](https://ldd.cc/) | [@xJoyLu](https://github.com/xjoylu) | blog | [→](https://ldd.cc/) |
-| [rezarezvan.com](https://rezarezvan.com/) | [@rezaarezvan](https://github.com/rezaarezvan) | academic, blog | [→](https://rezarezvan.com/) |
-| [blog.z0x.ca](https://blog.z0x.ca/) | [@z0x](https://z0x.ca) | minimal | [→](https://git.z0x.ca/z0x/blog.z0x.ca/) |
-| [angelaytchan.net](https://angelaytchan.net/) | [@wispyplant](https://github.com/wispyplant) | portfolio, art | [→](https://github.com/wispyplant/wispyplant.github.io) |
-| [kaezr.xyz](https://kaezr.xyz/) | [@kaezrr](https://github.com/kaezrr) | minimal, portfolio | [→](https://github.com/kaezrr/webfolio) |
-| [worldwidewong](https://worldwidewong.vercel.app) | [@brendanwong-web](https://github.com/brendanwong-web) | portfolio, gallery | [→](https://github.com/brendanwong-web/worldwidewong) |
-| [bgajjala.dev](https://bgajjala.dev) | [@bgajjala8](https://github.com/bgajjala8) | minimal, blog | [→](https://github.com/bgajjala8/bgajjala.dev) |
-| [ankitz007.vercel.app](https://ankitz007.vercel.app) | [@ankitz007](https://github.com/ankitz007) | blog | [→](https://github.com/ankitz007/webfolio) |
-| [sadman.ca](https://sadman.ca) | [@sadmanca](https://github.com/sadmanca) | blog, media | [→](https://github.com/sadmanca/blogv3) |
-| [marcel-to.vercel.app](https://marcel-to.vercel.app) | [@Marcel-TO](https://github.com/Marcel-TO) | portfolio, docs | [→](https://github.com/Marcel-TO/marcel-to-website) |
-| [merox.dev](https://merox.dev) | [@meroxdotdev](https://github.com/meroxdotdev) | blog, devops, homelab | [→](https://github.com/meroxdotdev/merox) |
-| [Off by One](https://justoffbyone.com) | [@cduruk](https://github.com/cduruk) | engineering, blog | [→](https://github.com/cduruk/offbyone) |
-| [holywater.dev](https://holywater.dev) | [@holywater2372](https://github.com/holywater2372) | cybersecurity, blog | [→](https://github.com/holywater2372/holywater.dev) |
-| [theinfinull.com](https://theinfinull.com) | [@theinfinull](https://github.com/theinfinull) | dev, portfolio, blog | [→](https://github.com/theinfinull/portfolio) |
-| [chai-pin-zheng.xyz](https://www.chai-pin-zheng.xyz/) | [@Ducksss](https://github.com/Ducksss) | portfolio, interactive, blog, ascii | [→](https://github.com/Ducksss/ascii-astro-erudite) |
-| [nightxade.dev](https://nightxade.dev) | [@nightxade](https://github.com/nightxade) | blog, portfolio | [→](https://github.com/nightxade/nightsite)
-| [xingpingcn.top](https://xingpingcn.top) | [@xingpingcn](https://github.com/xingpingcn) | blog, chinese | [→](https://github.com/xingpingcn/newblog) |
-
-## Features
-
-- A design system built entirely on native CSS, using [autonomous custom elements](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements) and [Utopia](https://utopia.fyi/) fluid type and space scales.
-- The ridiculously fast [Sätteri](https://satteri.bruits.org/) Markdown processor (written in Rust)
-- [Expressive Code](https://expressive-code.com/) for code blocks and inline code, with `` `code{:lang}` `` annotations and TextMate scope highlighting.
-- $\LaTeX$ math rendered to browser-native and lightweight [MathML](https://developer.mozilla.org/en-US/docs/Web/MathML) via [Temml](https://temml.org/).
-- Subposts for organizing series, rendered as one continuous scrollable document.
-- A fully responsive table of contents with active scrollspy highlighting.
-- Clickable heading anchors for permalinking to any section.
-- GitHub-style callouts/alerts via `:::` directives.
-- SEO optimization with granular metadata and [Open Graph](https://ogp.me/) tag control for each post.
-- [RSS](https://en.wikipedia.org/wiki/RSS) feed and sitemap generation.
-- Author profiles with a dedicated authors page and multi-author post support.
-- Post tags with a dedicated tags page for categorization and discovery.
+Personal site: security write-ups, CTF write-ups, and projects.
+Built with [Astro](https://astro.build/) on top of
+[astro-erudite](https://github.com/jktrn/astro-erudite), an unstyled static
+blogging template with no UI framework and native CSS.
 
 ## Getting started
 
-1. Hit &ldquo;Use this template&rdquo;, the big green button on the top right, to create a new repository in your own GitHub account with this template.
-
-2. Clone the repository:
+1. Install dependencies:
 
    ```bash
-   git clone https://github.com/[YOUR_USERNAME]/[YOUR_REPO_NAME].git
-   cd [YOUR_REPO_NAME]
+   npm install
    ```
 
-3. Install dependencies:
+2. Start the development server:
 
    ```bash
-   bun install
+   npm run dev
    ```
 
-4. Start the development server:
-
-   ```bash
-   bun dev
-   ```
-
-5. Open your browser and visit `http://localhost:4321` to get started. The following commands are also available:
+3. Open `http://localhost:4321`. Other commands:
 
    | Command                | Description                                       |
-   | ---------------------- | ------------------------------------------------- |
-   | `bun run build`        | Build the production site to `dist/`              |
-   | `bun run preview`      | Preview the built project locally                 |
-   | `bun run astro`        | Run Astro CLI commands                            |
-   | `bun run format`       | Format all files using [Biome](https://biomejs.dev/) |
-   | `bun run format:check` | Check formatting without writing                  |
+   | ----------------------- | -------------------------------------------------- |
+   | `npm run build`         | Type-check (`astro check`) and build to `dist/`    |
+   | `npm run preview`       | Serve the production build locally                 |
+   | `npm run astro`         | Run Astro CLI commands                              |
+   | `npm run format`        | Format all files with [Biome](https://biomejs.dev/) |
+   | `npm run format:check`  | Check formatting without writing                    |
 
 ### Site configuration
 
-Edit the `src/consts.ts` file to update your site's metadata, navigation links, and social links:
+`src/consts.ts` holds site metadata, nav links, and social links:
 
 ```ts
 export const SITE = {
-  title: "astro-erudite",
-  description: "An opinionated, unstyled blogging template built with Astro.",
+  title: "0x4142",
+  description: "Security write-ups, CTF write-ups, and projects by 0x4142.",
+  tagline: "",
   locale: "en-US",
   dir: "ltr",
-  defaultPageImage: "/static/opengraph-image.png",
-  defaultPostImage: "/static/1200x630.png",
+  defaultPageImage: "/static/og-default.png",
+  defaultPostImage: "/static/og-default.png",
 } as const
 
 export const NAVIGATION = [
@@ -120,16 +50,21 @@ export const NAVIGATION = [
 ]
 
 export const SOCIALS: { href: string; label: string; icon: SvgComponent }[] = [
-  { href: "https://github.com/jktrn", label: "GitHub", icon: GitHub },
+  { href: "https://github.com/OceanMan42", label: "GitHub", icon: GitHub },
   // ...
 ]
 ```
 
-Your site's production URL is configurable in `astro.config.ts` as the `site` field, which is used for the sitemap, RSS feed, and canonical URLs.
+The production URL is set in `astro.config.ts` as the `site` field, used for
+the sitemap, RSS feed, and canonical URLs.
 
 ### Color palette
 
-Colors are defined in `src/styles/color.css` using the [Radix Colors](https://www.radix-ui.com/colors) scales. Each step carries a light/dark pair via [`light-dark()`](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value/light-dark) and the semantic tokens point at the scale, so the site respects system preference out of the box and the theme toggle only stores an override:
+Colors are defined in `src/styles/color.css` using the
+[Radix Colors](https://www.radix-ui.com/colors) scales. Each step carries a
+light/dark pair via [`light-dark()`](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value/light-dark)
+and the semantic tokens point at the scale, so the site respects system
+preference out of the box and the theme toggle only stores an override:
 
 ```css
 :root {
@@ -149,23 +84,38 @@ Colors are defined in `src/styles/color.css` using the [Radix Colors](https://ww
 
 ### Favicons
 
-Favicons are generated using [RealFaviconGenerator](https://realfavicongenerator.net/). To adjust the favicons, replace the files in the `public/` directory (such as `favicon.ico`, `favicon.svg`, `apple-touch-icon.png`, etc.) with your own. After updating the favicon files, you'll also need to adjust the references in `src/components/MetaHead.astro` to match your new favicon filenames and paths:
+The favicon is a `#_` root prompt drawn from plain rectangles, so it doesn't
+depend on any installed font. `public/favicon.svg` is the source; the sidebar
+logo `src/assets/logo.svg` uses the same shapes without the tile and follows
+the text color. The other icons are exported from it:
 
-```html
-<!-- Replace these with the generated meta tags -->
-<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="shortcut icon" href="/favicon.ico" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-<meta name="apple-mobile-web-app-title" content="astro-erudite" />
-<link rel="manifest" href="/site.webmanifest" />
+```sh
+rsvg-convert -w 96 -h 96 public/favicon.svg -o public/favicon-96x96.png
+for s in 16 32 48; do rsvg-convert -w $s -h $s public/favicon.svg -o /tmp/ico-$s.png; done
+magick /tmp/ico-16.png /tmp/ico-32.png /tmp/ico-48.png public/favicon.ico
+```
+
+`apple-touch-icon.png` (180px) and the `web-app-manifest-*.png` icons use a
+full-bleed square tile with the glyph scaled to 80% and 70% respectively, so
+it stays inside the rounded and maskable safe zones.
+
+### Default social image
+
+`public/static/og-default.png` (1200 &times; 630) is the Open Graph image used
+for pages, and for posts and CTF write-ups without their own `image`. Its
+source is `docs/og-default.svg`. After editing the SVG, regenerate the PNG:
+
+```sh
+rsvg-convert -w 1200 -h 630 docs/og-default.svg -o public/static/og-default.png
 ```
 
 ## Adding content
 
 ### Blog posts
 
-Add new blog posts as Markdown files in the `src/content/blog/` directory, either as a bare `your-post.md` or as a `your-post/index.md` folder (which lets you colocate assets). Use the following frontmatter structure:
+Add posts as Markdown files in `src/content/blog/`, either a bare
+`your-post.md` or a `your-post/index.md` folder (which lets you colocate
+assets). Frontmatter:
 
 ```yml
 ---
@@ -173,7 +123,7 @@ title: "Your Post Title"
 description: "A brief description of your post!"
 date: 2026-01-01
 authors:
-  - enscribe
+  - "0x4142"
 image: ./assets/banner.png
 tags:
   - tag1
@@ -181,22 +131,27 @@ tags:
 ---
 ```
 
-The blog post schema is defined as follows:
+| Field         | Type (Zod)               | Requirements                                                                                                                                                | Required |
+| ------------- | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- |
+| `title`       | `string`                 | Should be ≤60 characters.                                                                                                                                     | Yes      |
+| `description` | `string`                 | Should be ≤155 characters.                                                                                                                                    | Yes      |
+| `date`        | `coerce.date()`          | Must be in `YYYY-MM-DD` format.                                                                                                                               | Yes      |
+| `order`       | `number`                 | Sort order for subposts within a series. Defaults to `0` if not provided.                                                                                     | Optional |
+| `tags`        | `string[]`               | Preferably use kebab-case for these.                                                                                                                          | Optional |
+| `authors`     | `reference("authors")[]` | Each entry must match the id of a file in `src/content/authors/` (e.g. `jane-doe.md` → `jane-doe`). Validated at build time.                                  | Yes      |
+| `image`       | `image()`                | Should be exactly 1200px &times; 630px.                                                                                                                       | Optional |
+| `draft`       | `boolean`                | Defaults to `false`. A `_`-prefixed filename also hides a post from the content loader entirely.                                                              | Optional |
 
-| Field         | Type (Zod)               | Requirements                                                                                                                                                                  | Required |
-| ------------- | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- |
-| `title`       | `string`                 | Should be ≤60 characters.                                                                                                                                                     | Yes      |
-| `description` | `string`                 | Should be ≤155 characters.                                                                                                                                                    | Yes      |
-| `date`        | `coerce.date()`          | Must be in `YYYY-MM-DD` format.                                                                                                                                               | Yes      |
-| `order`       | `number`                 | Sort order for subposts within a series. Defaults to `0` if not provided.                                                                                                     | Optional |
-| `tags`        | `string[]`               | Preferably use kebab-case for these.                                                                                                                                          | Optional |
-| `authors`     | `reference("authors")[]` | Each entry must match the id of a file in `src/content/authors/` (e.g. if their file is named `jane-doe.md`, use `jane-doe` in the array). Validated at build time.           | Yes      |
-| `image`       | `image()`                | Should be exactly 1200px &times; 630px.                                                                                                                                       | Optional |
-| `draft`       | `boolean`                | Defaults to `false` if not provided. You can also prefix a filename with `_` to hide it from the content loader entirely.                                                     | Optional |
+> [!WARNING]
+> Since the site's name looks like a hex number (as `0x4142` does), quote it
+> whenever it appears as a YAML value (e.g. `authors: - "0x4142"`), or the
+> YAML parser will read it as the integer `16706` instead of the string
+> `"0x4142"`, and the build will fail with a schema validation error.
 
-### Subposts
+#### Subposts
 
-A post becomes a series by nesting sibling Markdown files next to its `index.md`:
+A post becomes a series by nesting sibling Markdown files next to its
+`index.md`:
 
 ```
 src/content/blog/
@@ -207,13 +162,16 @@ src/content/blog/
     └── going-further.md
 ```
 
-The entire series renders as one continuous document, with the address bar syncing as you scroll between parts. Every subpost still gets its own URL (`/blog/my-series/getting-started`). Use the `order` frontmatter field to control the sequence. Only one level of nesting is supported, so files nested any deeper are ignored.
+The series renders as one continuous scrollable document, with the address
+bar syncing as you scroll between parts; every subpost still gets its own URL
+(`/blog/my-series/getting-started`). Use `order` to control sequence. Only one
+level of nesting is supported.
 
-### Markdown extensions
+#### Markdown extensions
 
-A few authoring features exist that extend beyond standard Markdown:
-
-- Callouts use the [directive](https://talk.commonmark.org/t/generic-directives-plugins-syntax/444) syntax, with five variants (`note`, `tip`, `warning`, `caution`, `important`) rendered as collapsible `<details>` elements. Append `{closed}` to start one collapsed:
+- Callouts use directive syntax with five variants (`note`, `tip`, `warning`,
+  `caution`, `important`), rendered as collapsible `<details>`. Append
+  `{closed}` to start one collapsed:
 
   ```markdown
   :::note[An optional custom title]
@@ -221,75 +179,118 @@ A few authoring features exist that extend beyond standard Markdown:
   :::
   ```
 
-- Math is written as `$inline$` or `$$display$$` $\LaTeX$ and rendered to MathML at build time.
-- Inline code ending in an annotation gets syntax highlighting: `` `const x = 1{:ts}` `` highlights as TypeScript, and `` `text{:.string}` `` paints with the theme's color for a [TextMate scope](https://macromates.com/manual/en/language_grammars).
+- Math is written as `$inline$` or `$$display$$` LaTeX, rendered to MathML at
+  build time.
+- Inline code ending in an annotation gets syntax highlighting:
+  `` `const x = 1{:ts}` `` highlights as TypeScript, and `` `text{:.string}` ``
+  paints with the theme's color for a TextMate scope.
+- Raw HTML/SVG in the Markdown body passes through untouched, which is how
+  the hand-drawn diagrams in longer write-ups are built.
 
 ### Authors
 
-Add author information in `src/content/authors/` as Markdown files. A file named `[author-name].md` can be associated with a blog post if `"author-name"` (the id) is added to the `authors` field:
+Add author profiles in `src/content/authors/` as Markdown files. A file named
+`[author-name].md` is referenced from a post's `authors` field by its id
+(`"author-name"`):
 
 ```yml
 ---
-name: "enscribe"
-pronouns: "he/him"
-avatar: "https://avatars.githubusercontent.com/u/71956291?v=4"
-bio: "d(-_-)b"
-mail: "jason@enscribe.dev"
+name: "0x4142"
+avatar: "https://github.com/OceanMan42.png"
+bio: "Security write-ups, CTFs, and projects."
+mail: "banurag97@gmail.com"
 socials:
-  website: "https://enscribe.dev"
-  twitter: "https://twitter.com/enscrbe"
-  github: "https://github.com/jktrn"
+  github: "https://github.com/OceanMan42"
 ---
 ```
 
-The author schema is defined as follows:
+| Field      | Type (Zod)                          | Requirements                                                          | Required |
+| ---------- | ------------------------------------ | ---------------------------------------------------------------------- | -------- |
+| `name`     | `string`                             | n/a                                                                     | Yes      |
+| `pronouns` | `string`                             | n/a                                                                     | Optional |
+| `avatar`   | `url()` or `string.startsWith("/")`  | A valid URL or a path starting with `/`.                                | Yes      |
+| `bio`      | `string`                             | n/a                                                                     | Optional |
+| `mail`     | `email()`                            | Must be a valid email address.                                          | Optional |
+| `socials`  | `record(string, url())`              | A map of any label to a valid URL, matched to an icon in `SocialIcons.astro`. | Optional |
 
-| Field      | Type (Zod)                                 | Requirements                                                                                                                                                             | Required |
-| ---------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- |
-| `name`     | `string`                                   | n/a                                                                                                                                                                      | Yes      |
-| `pronouns` | `string`                                   | n/a                                                                                                                                                                      | Optional |
-| `avatar`   | `url()` or `string.startsWith("/")`        | Should be either a valid URL or a path starting with `/`. | Yes      |
-| `bio`      | `string`                                   | n/a                                                                                                                                                                      | Optional |
-| `mail`     | `email()`                                  | Must be a valid email address.                                                                                                                                           | Optional |
-| `socials`  | `record(string, url())`                    | A map of any label you like to a valid URL. Each label is matched to an icon in `src/components/SocialIcons.astro`.                                                      | Optional |
+### CTFs
 
-> [!WARNING]
-> If your site's name looks like a hex number (as `0x4142` does), quote it
-> whenever it appears as a YAML value — e.g. `authors: - "0x4142"` — or the
-> YAML parser will read it as the integer `16706` instead of the string
-> `"0x4142"`, and the build will fail with a schema validation error.
+Add write-ups in `src/content/ctfs/` as Markdown files. Each file gets its
+own page at `/ctfs/[id]` with the same table of contents, reading time, and
+scroll progress bar as blog posts.
+
+```yml
+---
+title: "baby-rop"
+description: "A ret2libc chain through a 32-byte stack buffer."
+date: 2026-01-01
+event: "Example CTF 2026"
+category: "pwn"
+difficulty: "medium"
+placement: "Solved"
+authors:
+  - "0x4142"
+tags:
+  - rop
+  - x86-64
+---
+```
+
+| Field         | Type (Zod)               | Requirements                                                             | Required |
+| ------------- | ------------------------ | --------------------------------------------------------------------------- | -------- |
+| `title`       | `string`                 | Usually the challenge name.                                                  | Yes      |
+| `description` | `string`                 | n/a                                                                          | Yes      |
+| `date`        | `coerce.date()`          | Must be in `YYYY-MM-DD` format.                                              | Yes      |
+| `event`       | `string`                 | The CTF/competition name.                                                    | Yes      |
+| `category`    | `string`                 | e.g. `pwn`, `web`, `crypto`, `rev`, `forensics`.                              | Yes      |
+| `difficulty`  | `string`                 | Freeform, e.g. `easy` or a point value.                                      | Optional |
+| `placement`   | `string`                 | e.g. `Solved`, `1st place`, `Unsolved (writeup after)`.                       | Optional |
+| `tags`        | `string[]`               | Preferably kebab-case.                                                        | Optional |
+| `authors`     | `reference("authors")[]` | Same rules as blog posts.                                                     | Yes      |
+| `image`       | `image()`                | Should be exactly 1200px &times; 630px.                                      | Optional |
+| `draft`       | `boolean`                | Defaults to `false`.                                                         | Optional |
 
 ### Projects
 
-Add projects in `src/content/projects/` as Markdown files:
+Add projects in `src/content/projects/` as Markdown files. Each file becomes
+one entry on `/projects`, linking out to the project itself.
 
 ```yml
 ---
-name: "Project A"
-description: "This is an example project description! You should replace this with a description of your own project."
-tags: ["Framework A", "Library B", "Tool C", "Resource D"]
-image: "./placeholder.png"
-link: "https://example.com"
-startDate: "2024-01-01"
-endDate: "2024-02-01"
+name: "Project name"
+description: "One or two sentences on what it does."
+link: "https://github.com/OceanMan42/project"
+image: ./assets/screenshot.png
+tags:
+  - rust
+startDate: 2026-01-01
 ---
 ```
 
-The project schema is defined as follows:
+| Field         | Type (Zod)      | Requirements                                                         | Required |
+| ------------- | ---------------- | --------------------------------------------------------------------- | -------- |
+| `name`        | `string`         | n/a                                                                    | Yes      |
+| `description` | `string`         | n/a                                                                    | Yes      |
+| `link`        | `url()`          | Where the entry links to. Its hostname is shown in the card.           | Yes      |
+| `tags`        | `string[]`       | Preferably kebab-case.                                                 | Optional |
+| `image`       | `image()`        | Shown beside the entry; ideally 1200px &times; 630px.                  | Optional |
+| `startDate`   | `coerce.date()`  | Must be in `YYYY-MM-DD` format. Controls sort order (newest first).    | Optional |
+| `endDate`     | `coerce.date()`  | Omit for ongoing projects (shown as "Present").                        | Optional |
 
-| Field         | Type (Zod)      | Requirements                            | Required |
-| ------------- | --------------- | --------------------------------------- | -------- |
-| `name`        | `string`        | n/a                                     | Yes      |
-| `description` | `string`        | n/a                                     | Yes      |
-| `link`        | `url()`         | Must be a valid URL.                    | Yes      |
-| `tags`        | `string[]`      | n/a                                     | Optional |
-| `image`       | `image()`       | Should be exactly 1200px &times; 630px. | Optional |
-| `startDate`   | `coerce.date()` | Must be in `YYYY-MM-DD` format.         | Optional |
-| `endDate`     | `coerce.date()` | Must be in `YYYY-MM-DD` format.         | Optional |
+### Hidden sections: Photos and Music
+
+Photos and Music are currently hidden. Their collections and components are
+kept, but their pages live in `src/pages/_photos/` and `src/pages/_music/`,
+and Astro does not build routes from `_`-prefixed folders. To bring one back:
+
+1. Rename the folder to drop the underscore (e.g. `git mv src/pages/_photos src/pages/photos`).
+2. Add its link back to `NAVIGATION` in `src/consts.ts`.
 
 ### Photos
 
-Add photos in `src/content/photos/` as Markdown files. Each file represents one photo shown in the `/photos` grid; clicking a thumbnail opens it full-size in a lightbox with its caption.
+Add photos in `src/content/photos/` as Markdown files. Each file is one photo
+shown in the `/photos` grid; clicking a thumbnail opens it full-size in a
+lightbox with its caption.
 
 ```yml
 ---
@@ -302,27 +303,31 @@ tags:
 ---
 ```
 
-The photo schema is defined as follows:
-
-| Field         | Type (Zod)      | Requirements                                                         | Required |
-| ------------- | ---------------- | ------------------------------------------------------------------- | -------- |
-| `title`       | `string`         | Shown as the image's alt text and lightbox caption fallback.         | Yes      |
-| `description` | `string`         | Shown as the lightbox caption, if present.                           | Optional |
-| `date`        | `coerce.date()`  | Must be in `YYYY-MM-DD` format. Controls sort order (newest first).  | Yes      |
-| `image`       | `image()`        | The photo file itself.                                               | Yes      |
-| `tags`        | `string[]`       | Preferably use kebab-case for these.                                 | Optional |
-| `draft`       | `boolean`        | Defaults to `false` if not provided.                                 | Optional |
+| Field         | Type (Zod)      | Requirements                                                        | Required |
+| ------------- | ---------------- | -------------------------------------------------------------------- | -------- |
+| `title`       | `string`         | Shown as the image's alt text and lightbox caption fallback.          | Yes      |
+| `description` | `string`         | Shown as the lightbox caption, if present.                            | Optional |
+| `date`        | `coerce.date()`  | Must be in `YYYY-MM-DD` format. Controls sort order (newest first).   | Yes      |
+| `image`       | `image()`        | The photo file itself.                                                | Yes      |
+| `tags`        | `string[]`       | Preferably kebab-case.                                                 | Optional |
+| `draft`       | `boolean`        | Defaults to `false`.                                                   | Optional |
 
 ### Music
 
-Add tracks in `src/content/music/` as Markdown files. Each file becomes one entry on the `/music` page with an embedded player.
+Add tracks in `src/content/music/` as Markdown files. Each file becomes one
+entry on `/music` with an embedded player.
 
-`embedUrl` must be the platform's **embed-flavored** URL, not a normal share link — the page renders it directly into an `<iframe src={embedUrl}>` with no per-provider processing, so it needs to already be embeddable:
+`embedUrl` must be the platform's **embed-flavored** URL, not a normal share
+link: the page renders it directly into an `<iframe src={embedUrl}>` with no
+per-provider processing:
 
-- **Spotify**: Share → Embed track/album → copy the `src` from the generated `<iframe>` (looks like `https://open.spotify.com/embed/track/...`).
-- **YouTube**: Share → Embed → copy the `src` (`https://www.youtube.com/embed/VIDEO_ID`).
-- **SoundCloud**: use the "Share" → "Embed" panel, copy the `src` out of the provided `<iframe>` code.
-- **Bandcamp**: use the track/album's "Share/Embed" link, copy the `src` out of the provided `<iframe>` code.
+- **Spotify**: Share → Embed track/album → copy the `src` from the generated
+  `<iframe>` (`https://open.spotify.com/embed/track/...`).
+- **YouTube**: Share → Embed → copy the `src`
+  (`https://www.youtube.com/embed/VIDEO_ID`).
+- **SoundCloud**: Share → Embed panel, copy the `src` out of the `<iframe>`.
+- **Bandcamp**: the track/album's Share/Embed link, copy the `src` out of the
+  `<iframe>`.
 
 ```yml
 ---
@@ -337,40 +342,18 @@ tags:
 ---
 ```
 
-The music schema is defined as follows:
-
 | Field         | Type (Zod)      | Requirements                                                        | Required |
 | ------------- | ---------------- | ---------------------------------------------------------------------- | -------- |
 | `title`       | `string`         | n/a                                                                     | Yes      |
-| `artist`      | `string`         | Omitted from display if not provided (no artist line shown).           | Optional |
+| `artist`      | `string`         | Omitted from display if not provided.                                  | Optional |
 | `description` | `string`         | n/a                                                                     | Optional |
 | `date`        | `coerce.date()`  | Must be in `YYYY-MM-DD` format. Controls sort order (newest first).     | Yes      |
-| `embedUrl`    | `url()`          | Must be an embed-flavored URL — see the platform notes above.          | Yes      |
+| `embedUrl`    | `url()`          | Must be an embed-flavored URL, see the platform notes above.           | Yes      |
 | `image`       | `image()`        | Optional cover art shown above the player.                              | Optional |
-| `tags`        | `string[]`       | Preferably use kebab-case for these.                                    | Optional |
-| `draft`       | `boolean`        | Defaults to `false` if not provided.                                   | Optional |
+| `tags`        | `string[]`       | Preferably kebab-case.                                                  | Optional |
+| `draft`       | `boolean`        | Defaults to `false`.                                                   | Optional |
 
 ## License
 
-This project is open source and available under the [MIT License](LICENSE).
-
----
-
-### Star history
-
-<a href="https://star-history.com/#jktrn/astro-erudite&Date">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=jktrn/astro-erudite&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=jktrn/astro-erudite&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=jktrn/astro-erudite&type=Date" />
- </picture>
-</a>
-
----
-
-Built with &hearts; by [enscribe](https://enscribe.dev)!
-
-[Stargazers]: https://img.shields.io/github/stars/jktrn/astro-erudite?color=fafafa&logo=github&logoColor=fff&style=flat
-[Astro Version]: https://img.shields.io/github/package-json/dependency-version/jktrn/astro-erudite/astro?color=0a0a0a&logo=astro&logoColor=fff&style=flat
-[Dependencies]: https://img.shields.io/badge/dependencies-15-fafafa?style=flat
-[License]: https://img.shields.io/github/license/jktrn/astro-erudite?color=0a0a0a&logo=github&logoColor=fff&style=flat
+Built on [astro-erudite](https://github.com/jktrn/astro-erudite) by
+[enscribe](https://enscribe.dev), open source under the [MIT License](LICENSE).

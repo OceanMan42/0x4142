@@ -128,6 +128,10 @@ const { crumbs } = Astro.props
       margin-block-start: var(--space-xl);
     }
 
+    @media screen and (width >= 64rem) {
+      padding-inline: var(--space-l);
+    }
+
     @media (width < 64rem) {
       grid-column: 1 / -1;
       grid-row: auto;

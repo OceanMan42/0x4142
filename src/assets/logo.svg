@@ -1,10 +1,9 @@
-<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_741_1317)">
-<path d="M512 366H72V438H512V512H0V292H440V220H0V0H512V74H72V146H512V366Z" fill="currentColor"/>
-</g>
-<defs>
-<clipPath id="clip0_741_1317">
-<rect width="512" height="512" fill="white"/>
-</clipPath>
-</defs>
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="6 6 52 52">
+  <g fill="currentColor">
+    <rect x="13" y="17" width="6" height="30"/>
+    <rect x="25" y="17" width="6" height="30"/>
+    <rect x="9" y="24" width="26" height="6"/>
+    <rect x="9" y="36" width="26" height="6"/>
+    <rect x="39" y="41" width="16" height="6"/>
+  </g>
 </svg>

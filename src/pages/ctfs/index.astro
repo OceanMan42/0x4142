@@ -1,0 +1,23 @@
+---
+import CTFCard from "@/components/CTFCard.astro"
+import MetaPage from "@/components/MetaPage.astro"
+import Layout from "@/layouts/Layout.astro"
+import { getCTFs } from "@/lib/content"
+
+const writeups = await getCTFs()
+---
+
+<Layout>
+  <MetaPage slot="head" title="CTFs" />
+  <ul>
+    {writeups.map((ctf) => <CTFCard ctf={ctf} />)}
+  </ul>
+</Layout>
+
+<style>
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-m);
+  }
+</style>

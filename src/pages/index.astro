@@ -13,12 +13,12 @@ const recentPosts = (await getPosts()).slice(0, 5)
   <MetaPage slot="head" />
   <home-intro>
     <h1>{SITE.title}</h1>
-    <p data-tagline>{SITE.description}</p>
-    <!-- Placeholder bio — replace with your own -->
+    {SITE.tagline && <p data-tagline>{SITE.tagline}</p>}
+    <!-- Placeholder bio, replace with your own -->
     <p>
-      Hi, I'm 0x4142 — I write about the things I'm building, the places I point
-      my camera, and the sounds I can't stop looping. Expect technical
-      write-ups, photos, and music, in no particular order.
+      Hi, I'm 0x4142. I take things apart to see how they work, then write it
+      down. Expect security write-ups, CTF solutions, and notes on the
+      projects I'm building.
     </p>
     <SocialIcons links={SOCIALS} />
   </home-intro>

@@ -5,17 +5,17 @@ import RSS from "@/assets/icons/rss.svg"
 
 export const SITE = {
   title: "0x4142",
-  description: "Bytes, light, and sound.",
+  description: "Security write-ups, CTF write-ups, and projects by 0x4142.",
+  tagline: "",
   locale: "en-US",
   dir: "ltr",
-  defaultPageImage: "/static/1200x630.png",
-  defaultPostImage: "/static/1200x630.png",
+  defaultPageImage: "/static/og-default.png",
+  defaultPostImage: "/static/og-default.png",
 } as const
 
 export const NAVIGATION = [
   { href: "/blog", label: "Blog" },
-  { href: "/photos", label: "Photos" },
-  { href: "/music", label: "Music" },
+  { href: "/ctfs", label: "CTFs" },
   { href: "/projects", label: "Projects" },
 ]
 

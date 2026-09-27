@@ -1,11 +1,12 @@
 ---
 import MetaPost from "@/components/MetaPost.astro"
 import PostActions from "@/components/PostActions.astro"
+import ReadingProgress from "@/components/ReadingProgress.astro"
 import ScrollToTop from "@/components/ScrollToTop.astro"
 import SeriesReader from "@/components/SeriesReader.astro"
 import TableOfContents from "@/components/TableOfContents.astro"
 import Layout from "@/layouts/Layout.astro"
-import { getPosts, getSubposts, pageTitle } from "@/lib/content"
+import { getPosts, getSubposts, pageTitle, readingTime } from "@/lib/content"
 import { formatDate, isSubpost, subpostSlug } from "@/lib/utils"
 import { Image } from "astro:assets"
 import { getEntries, render, type CollectionEntry } from "astro:content"
@@ -36,6 +37,7 @@ const rendered = await Promise.all(
     entry,
     ...(await render(entry)),
     authors: await getEntries(entry.data.authors),
+    minutes: readingTime(entry.body ?? ""),
   })),
 )
 
@@ -70,8 +72,9 @@ if (isSubpost(post.id)) {
       />
     )}
   <PostActions slot="actions" prev={prev} next={next} />
+  <ReadingProgress />
   <ScrollToTop floating />
-  {rendered.map(({ entry, Content, authors }, i) => (
+  {rendered.map(({ entry, Content, authors, minutes }, i) => (
       <article
         id={i === 0 ? undefined : subpostSlug(entry.id)}
         data-url={`/blog/${entry.id}`}
@@ -103,6 +106,7 @@ if (isSubpost(post.id)) {
             <time datetime={entry.data.date.toISOString()}
               >{formatDate(entry.data.date)}</time
             >
+            <read-time>{minutes} min read</read-time>
             {entry.data.tags && (
               <post-tags>
                 {entry.data.tags.map((tag) => (
@@ -185,6 +189,11 @@ if (isSubpost(post.id)) {
       }
 
       post-authors ~ time::before {
+        content: "·";
+        margin-inline-end: var(--space-3xs);
+      }
+
+      time ~ read-time::before {
         content: "·";
         margin-inline-end: var(--space-3xs);
       }

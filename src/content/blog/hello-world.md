@@ -1,6 +1,6 @@
 ---
 title: "Hello, world"
-description: "The first post on 0x4142 — a placeholder to replace with your own writing."
+description: "The first post on 0x4142, a placeholder to replace with your own writing."
 date: 2026-09-01
 authors:
   - "0x4142"

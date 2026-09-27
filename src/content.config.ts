@@ -35,6 +35,27 @@ const blog = defineCollection({
     }),
 })
 
+const ctfs = defineCollection({
+  loader: glob({
+    pattern: "**/[^_]*.md",
+    base: "./src/content/ctfs",
+  }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      date: z.coerce.date(),
+      event: z.string(),
+      category: z.string(),
+      difficulty: z.string().optional(),
+      placement: z.string().optional(),
+      tags: z.array(z.string()).optional(),
+      authors: z.array(reference("authors")),
+      image: image().optional(),
+      draft: z.boolean().optional(),
+    }),
+})
+
 const projects = defineCollection({
   loader: glob({
     pattern: "**/[^_]*.md",
@@ -86,4 +107,4 @@ const music = defineCollection({
     }),
 })
 
-export const collections = { blog, authors, projects, photos, music }
+export const collections = { blog, authors, ctfs, projects, photos, music }

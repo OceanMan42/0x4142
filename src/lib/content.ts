@@ -4,6 +4,25 @@ import { isSubpost } from "@/lib/utils"
 
 export const pageTitle = (title: string) => `${title} | ${SITE.title}`
 
+const WORDS_PER_MINUTE = 200
+
+/** Estimates reading time (in whole minutes, minimum 1) from a post's raw Markdown body. */
+export function readingTime(body: string): number {
+  const text = body
+    .replace(/<style[\s\S]*?<\/style>/gi, " ")
+    .replace(/<svg[\s\S]*?<\/svg>/gi, " ")
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/`[^`]*`/g, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, " ")
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
+    .replace(/:::\S*/g, " ")
+    .replace(/[#>*_~`]/g, " ")
+
+  const words = text.split(/\s+/).filter(Boolean)
+  return Math.max(1, Math.round(words.length / WORDS_PER_MINUTE))
+}
+
 export async function getPosts(): Promise<CollectionEntry<"blog">[]> {
   const posts = await getCollection("blog", ({ data }) => !data.draft)
   return posts
@@ -24,6 +43,11 @@ export async function getSubposts(): Promise<
       a.data.date.getTime() - b.data.date.getTime(),
   )
   return Map.groupBy(posts, (post) => post.id.split("/")[0])
+}
+
+export async function getCTFs(): Promise<CollectionEntry<"ctfs">[]> {
+  const writeups = await getCollection("ctfs", ({ data }) => !data.draft)
+  return writeups.sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
 }
 
 export async function getTags(): Promise<

@@ -1,0 +1,41 @@
+---
+---
+
+<reading-progress aria-hidden="true">
+  <span></span>
+</reading-progress>
+
+<style>
+  reading-progress {
+    position: fixed;
+    inset-block-start: 0;
+    inset-inline: 0;
+    z-index: 20;
+    display: block;
+    block-size: 3px;
+  }
+
+  span {
+    display: block;
+    block-size: 100%;
+    inline-size: 0%;
+    background: var(--foreground);
+  }
+</style>
+
+<script>
+  ;(() => {
+    const bar = document.querySelector<HTMLElement>("reading-progress > span")
+    if (!bar) return
+
+    const update = () => {
+      const max = document.documentElement.scrollHeight - innerHeight
+      const pct = max > 0 ? Math.min(Math.max(scrollY / max, 0), 1) : 0
+      bar.style.inlineSize = `${pct * 100}%`
+    }
+
+    addEventListener("scroll", update, { passive: true })
+    addEventListener("resize", update)
+    update()
+  })()
+</script>
