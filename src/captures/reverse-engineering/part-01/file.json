@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "title": "file: what did gcc produce?",
+  "frames": [
+    {
+      "label": "identify the binary",
+      "command": "$ file hello",
+      "output": "hello: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=c2389cb890c4ae64ef9b748ff4d79b84c6798306, for GNU/Linux 3.2.0, with debug_info, not stripped"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "title": "objdump: main in assembly",
+  "frames": [
+    {
+      "label": "disassembly of main",
+      "command": "$ objdump -d -M intel --no-show-raw-insn --disassembler-color=on --disassemble=main hello",
+      "output": "\nhello:     file format elf64-x86-64\n\n\nDisassembly of section .init:\n\nDisassembly of section .plt:\n\nDisassembly of section .plt.sec:\n\nDisassembly of section .text:\n\n0000000000401136 <main>:\n  401136:\t\u001b[33mendbr64\u001b[0m\n  40113a:\t\u001b[33mpush   \u001b[0m\u001b[34mrbp\u001b[0m\n  40113b:\t\u001b[33mmov    \u001b[0m\u001b[34mrbp\u001b[0m,\u001b[34mrsp\u001b[0m\n  40113e:\t\u001b[33mmov    \u001b[0m\u001b[34medi\u001b[0m,\u001b[35m0x402004\u001b[0m\n  401143:\t\u001b[33mcall   \u001b[0m\u001b[35m401040\u001b[0m <\u001b[32mputs@plt\u001b[0m>\n  401148:\t\u001b[33mmov    \u001b[0m\u001b[34meax\u001b[0m,\u001b[35m0x0\u001b[0m\n  40114d:\t\u001b[33mpop    \u001b[0m\u001b[34mrbp\u001b[0m\n  40114e:\t\u001b[33mret\u001b[0m\n\nDisassembly of section .fini:"
+    }
+  ]
+}

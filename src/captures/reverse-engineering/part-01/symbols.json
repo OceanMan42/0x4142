@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "title": "nm: symbols",
+  "frames": [
+    {
+      "label": "symbols in the binary",
+      "command": "$ nm hello",
+      "output": "0000000000403e08 d _DYNAMIC\n0000000000403fe8 d _GLOBAL_OFFSET_TABLE_\n0000000000402000 R _IO_stdin_used\n00000000004020e8 r __FRAME_END__\n0000000000402014 r __GNU_EH_FRAME_HDR\n0000000000404018 D __TMC_END__\n000000000040038c r __abi_tag\n0000000000404018 B __bss_start\n0000000000404008 D __data_start\n0000000000401100 t __do_global_dtors_aux\n0000000000403e00 d __do_global_dtors_aux_fini_array_entry\n0000000000404010 D __dso_handle\n0000000000403df8 d __frame_dummy_init_array_entry\n                 w __gmon_start__\n                 U __libc_start_main@GLIBC_2.34\n0000000000401080 T _dl_relocate_static_pie\n0000000000404018 D _edata\n0000000000404020 B _end\n0000000000401150 T _fini\n0000000000401000 T _init\n0000000000401050 T _start\n0000000000404018 b completed.0\n0000000000404008 W data_start\n0000000000401090 t deregister_tm_clones\n0000000000401130 t frame_dummy\n0000000000401136 T main\n                 U puts@GLIBC_2.2.5\n00000000004010c0 t register_tm_clones"
+    }
+  ]
+}
