@@ -3,7 +3,7 @@ import AuthorCard from "@/components/AuthorCard.astro"
 import BlogCard from "@/components/BlogCard.astro"
 import MetaPage from "@/components/MetaPage.astro"
 import Layout from "@/layouts/Layout.astro"
-import { getPosts } from "@/lib/content"
+import { getFeed } from "@/lib/content"
 import { getCollection, type CollectionEntry } from "astro:content"
 
 export async function getStaticPaths() {
@@ -19,7 +19,7 @@ type Props = { author: CollectionEntry<"authors"> }
 const { author } = Astro.props
 const { name, bio } = author.data
 
-const posts = (await getPosts()).filter((post) =>
+const posts = (await getFeed()).filter(({ post }) =>
   post.data.authors.some((ref) => ref.id === author.id),
 )
 ---
@@ -36,8 +36,8 @@ const posts = (await getPosts()).filter((post) =>
     <h2>Posts</h2>
     {posts.length > 0 ? (
         <ul>
-          {posts.map((post) => (
-            <BlogCard post={post} />
+          {posts.map((item) => (
+            <BlogCard {...item} />
           ))}
         </ul>
       ) : (

@@ -1,6 +1,8 @@
 import { SITE } from "@/consts"
 import { getCollection, type CollectionEntry } from "astro:content"
-import { isSubpost } from "@/lib/utils"
+import { feed, type FeedItem } from "@/lib/series"
+
+export type BlogFeedItem = FeedItem<CollectionEntry<"blog">>
 
 export const pageTitle = (title: string) => `${title} | ${SITE.title}`
 
@@ -23,30 +25,14 @@ export function readingTime(body: string): number {
   return Math.max(1, Math.round(words.length / WORDS_PER_MINUTE))
 }
 
-export async function getPosts(): Promise<CollectionEntry<"blog">[]> {
-  const posts = await getCollection(
-    "blog",
-    ({ data }) => import.meta.env.DEV || !data.draft,
-  )
-  return posts
-    .filter((post) => !isSubpost(post.id))
-    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+/** Every blog entry visible in this build: drafts only in dev. */
+export async function getBlogEntries(): Promise<CollectionEntry<"blog">[]> {
+  return getCollection("blog", ({ data }) => import.meta.env.DEV || !data.draft)
 }
 
-export async function getSubposts(): Promise<
-  Map<string, CollectionEntry<"blog">[]>
-> {
-  const posts = await getCollection(
-    "blog",
-    ({ id, data }) =>
-      (import.meta.env.DEV || !data.draft) && id.split("/").length === 2,
-  )
-  posts.sort(
-    (a, b) =>
-      (a.data.order ?? Infinity) - (b.data.order ?? Infinity) ||
-      a.data.date.getTime() - b.data.date.getTime(),
-  )
-  return Map.groupBy(posts, (post) => post.id.split("/")[0])
+/** Posts and series parts, newest first. See `feed` in series.ts. */
+export async function getFeed(): Promise<BlogFeedItem[]> {
+  return feed(await getBlogEntries())
 }
 
 export async function getCTFs(): Promise<CollectionEntry<"ctfs">[]> {
@@ -54,20 +40,13 @@ export async function getCTFs(): Promise<CollectionEntry<"ctfs">[]> {
   return writeups.sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
 }
 
-export async function getTags(): Promise<
-  Map<string, CollectionEntry<"blog">[]>
-> {
-  const posts = await getPosts()
-  const series = await getSubposts()
-  const tags = new Map<string, CollectionEntry<"blog">[]>()
-  for (const post of posts) {
-    const chain = [post, ...(series.get(post.id) ?? [])]
-    for (const tag of new Set(
-      chain.flatMap((entry) => entry.data.tags ?? []),
-    )) {
+export async function getTags(): Promise<Map<string, BlogFeedItem[]>> {
+  const tags = new Map<string, BlogFeedItem[]>()
+  for (const item of await getFeed()) {
+    for (const tag of new Set(item.post.data.tags ?? [])) {
       const tagged = tags.get(tag)
-      if (tagged) tagged.push(post)
-      else tags.set(tag, [post])
+      if (tagged) tagged.push(item)
+      else tags.set(tag, [item])
     }
   }
   return new Map(

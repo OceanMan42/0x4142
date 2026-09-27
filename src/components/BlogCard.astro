@@ -1,11 +1,12 @@
 ---
+import type { BlogFeedItem } from "@/lib/content"
 import { formatDate } from "@/lib/utils"
 import { Image } from "astro:assets"
-import { getEntries, type CollectionEntry } from "astro:content"
+import { getEntries } from "astro:content"
 
-type Props = { post: CollectionEntry<"blog"> }
+type Props = BlogFeedItem
 
-const { post } = Astro.props
+const { post, series } = Astro.props
 const authors = await getEntries(post.data.authors)
 ---
 
@@ -16,6 +17,11 @@ const authors = await getEntries(post.data.authors)
       </a>
     )}
   <entry-info>
+    {series && (
+        <entry-series>
+          {series.parent.data.title} · Part {series.number}
+        </entry-series>
+      )}
     <a href={`/blog/${post.id}`}>{post.data.title}</a>
     <entry-meta>
       {authors.length > 0 && (
@@ -71,6 +77,11 @@ const authors = await getEntries(post.data.authors)
     entry-info {
       display: flex;
       flex-direction: column;
+
+      entry-series {
+        font-size: var(--step--1);
+        color: var(--muted-foreground);
+      }
 
       > a {
         font-size: var(--step-1);

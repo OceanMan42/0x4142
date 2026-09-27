@@ -136,7 +136,7 @@ tags:
 | `title`       | `string`                 | Should be ≤60 characters.                                                                                                                                     | Yes      |
 | `description` | `string`                 | Should be ≤155 characters.                                                                                                                                    | Yes      |
 | `date`        | `coerce.date()`          | Must be in `YYYY-MM-DD` format.                                                                                                                               | Yes      |
-| `order`       | `number`                 | Sort order for subposts within a series. Defaults to `0` if not provided.                                                                                     | Optional |
+| `order`       | `number`                 | Part number within a series (sets both order and the "Part N" label). Without it, parts are numbered by date.                                                  | Optional |
 | `tags`        | `string[]`               | Preferably use kebab-case for these.                                                                                                                          | Optional |
 | `authors`     | `reference("authors")[]` | Each entry must match the id of a file in `src/content/authors/` (e.g. `jane-doe.md` → `jane-doe`). Validated at build time.                                  | Yes      |
 | `image`       | `image()`                | Should be exactly 1200px &times; 630px.                                                                                                                       | Optional |
@@ -148,7 +148,7 @@ tags:
 > YAML parser will read it as the integer `16706` instead of the string
 > `"0x4142"`, and the build will fail with a schema validation error.
 
-#### Subposts
+#### Series
 
 A post becomes a series by nesting sibling Markdown files next to its
 `index.md`:
@@ -162,10 +162,14 @@ src/content/blog/
     └── going-further.md
 ```
 
-The series renders as one continuous scrollable document, with the address
-bar syncing as you scroll between parts; every subpost still gets its own URL
-(`/blog/my-series/getting-started`). Use `order` to control sequence. Only one
-level of nesting is supported.
+`index.md` is the series home (`/blog/my-series`): its content, followed by
+a list of the published parts. Each part is its own page
+(`/blog/my-series/getting-started`) with a "Series · Part N" label, previous
+and next part links, and its own table of contents. Every published part
+also appears in the blog list, the homepage's recent posts, tags, author
+pages and the RSS feed. Release a part by setting `draft: false`; a part is
+only published once its series home is. Use `order` to number parts. Only
+one level of nesting is supported.
 
 #### Markdown extensions
 

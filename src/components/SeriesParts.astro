@@ -1,0 +1,73 @@
+---
+import { readingTime } from "@/lib/content"
+import type { Part } from "@/lib/series"
+import type { CollectionEntry } from "astro:content"
+
+type Props = { parts: Part<CollectionEntry<"blog">>[] }
+
+const { parts } = Astro.props
+---
+
+<series-parts>
+  <h2>Parts</h2>
+  <ol>
+    {parts.map(({ entry, number }) => (
+      <li>
+        <a href={`/blog/${entry.id}`}>
+          <span>Part {number}</span>
+          {entry.data.title}
+        </a>
+        <p>
+          {entry.data.description}
+          <read-time>{readingTime(entry.body ?? "")} min read</read-time>
+        </p>
+      </li>
+    ))}
+  </ol>
+</series-parts>
+
+<style>
+  series-parts {
+    display: block;
+    margin-block-start: var(--space-xl);
+    padding-block-start: var(--space-l);
+    border-block-start: 1px solid var(--border);
+
+    h2 {
+      font-size: var(--step-1);
+      font-weight: var(--font-weight-medium);
+    }
+
+    ol {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-s);
+      margin-block-start: var(--space-s);
+      padding: 0;
+      list-style: none;
+    }
+
+    a {
+      display: flex;
+      flex-direction: column;
+      font-weight: var(--font-weight-medium);
+
+      span {
+        font-size: var(--step--1);
+        font-weight: normal;
+        color: var(--muted-foreground);
+      }
+    }
+
+    p {
+      margin-block-start: var(--space-3xs);
+      font-size: var(--step--1);
+      color: var(--muted-foreground);
+    }
+
+    read-time::before {
+      content: "·";
+      margin-inline: var(--space-3xs);
+    }
+  }
+</style>

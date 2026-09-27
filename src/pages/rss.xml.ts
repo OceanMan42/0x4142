@@ -1,19 +1,20 @@
 import { SITE } from "@/consts"
-import { getPosts } from "@/lib/content"
+import { getFeed } from "@/lib/content"
+import { feedTitle } from "@/lib/series"
 import rss from "@astrojs/rss"
 import type { APIContext } from "astro"
 
 export async function GET(context: APIContext) {
-  const posts = await getPosts()
+  const items = await getFeed()
   return rss({
     title: SITE.title,
     description: SITE.description,
     site: context.site!,
-    items: posts.map((post) => ({
-      title: post.data.title,
-      description: post.data.description,
-      pubDate: post.data.date,
-      link: `/blog/${post.id}`,
+    items: items.map((item) => ({
+      title: feedTitle(item),
+      description: item.post.data.description,
+      pubDate: item.post.data.date,
+      link: `/blog/${item.post.id}`,
     })),
   })
 }

@@ -1,0 +1,60 @@
+---
+import type { SeriesNav } from "@/lib/series"
+import type { CollectionEntry } from "astro:content"
+
+type Props = { nav: SeriesNav<CollectionEntry<"blog">> }
+
+const { prev, next, parent } = Astro.props.nav
+---
+
+<nav aria-label={`${parent.data.title} parts`}>
+  <a href={`/blog/${prev.id}`} data-dir="prev">
+    <span>← {prev === parent ? "Series home" : "Previous part"}</span>
+    {prev.data.title}
+  </a>
+  {next && (
+    <a href={`/blog/${next.id}`} data-dir="next">
+      <span>Next part →</span>
+      {next.data.title}
+    </a>
+  )}
+</nav>
+
+<style>
+  nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-s);
+    margin-block-start: var(--space-xl);
+    padding-block-start: var(--space-l);
+    border-block-start: 1px solid var(--border);
+
+    @media (width < 40rem) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  a {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3xs);
+    padding: var(--space-xs) var(--space-s);
+    border: 1px solid var(--border);
+    font-weight: var(--font-weight-medium);
+
+    span {
+      font-size: var(--step--1);
+      font-weight: normal;
+      color: var(--muted-foreground);
+    }
+  }
+
+  [data-dir="next"] {
+    grid-column: 2;
+    text-align: end;
+
+    @media (width < 40rem) {
+      grid-column: 1;
+    }
+  }
+</style>

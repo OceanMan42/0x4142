@@ -4,9 +4,9 @@ import MetaPage from "@/components/MetaPage.astro"
 import SocialIcons from "@/components/SocialIcons.astro"
 import Layout from "@/layouts/Layout.astro"
 import { SITE, SOCIALS } from "@/consts"
-import { getPosts } from "@/lib/content"
+import { getFeed } from "@/lib/content"
 
-const recentPosts = (await getPosts()).slice(0, 5)
+const recentPosts = (await getFeed()).slice(0, 5)
 ---
 
 <Layout>
@@ -17,8 +17,8 @@ const recentPosts = (await getPosts()).slice(0, 5)
     <!-- Placeholder bio, replace with your own -->
     <p>
       Hi, I'm 0x4142. I take things apart to see how they work, then write it
-      down. Expect security write-ups, CTF solutions, and notes on the
-      projects I'm building.
+      down. Expect security write-ups, CTF solutions, and notes on the projects
+      I'm building.
     </p>
     <SocialIcons links={SOCIALS} />
   </home-intro>
@@ -27,7 +27,7 @@ const recentPosts = (await getPosts()).slice(0, 5)
       <home-posts>
         <h2>Recent posts</h2>
         <ul>
-          {recentPosts.map((post) => <BlogCard post={post} />)}
+          {recentPosts.map((item) => <BlogCard {...item} />)}
         </ul>
       </home-posts>
     )}

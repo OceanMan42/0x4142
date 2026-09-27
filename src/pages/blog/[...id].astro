@@ -4,89 +4,91 @@ import MetaPost from "@/components/MetaPost.astro"
 import PostActions from "@/components/PostActions.astro"
 import ReadingProgress from "@/components/ReadingProgress.astro"
 import ScrollToTop from "@/components/ScrollToTop.astro"
-import SeriesReader from "@/components/SeriesReader.astro"
+import SeriesNav from "@/components/SeriesNav.astro"
+import SeriesParts from "@/components/SeriesParts.astro"
 import TableOfContents from "@/components/TableOfContents.astro"
 import Layout from "@/layouts/Layout.astro"
-import { getPosts, getSubposts, pageTitle, readingTime } from "@/lib/content"
-import { formatDate, isSubpost, subpostSlug } from "@/lib/utils"
+import { getBlogEntries, getFeed, readingTime } from "@/lib/content"
+import {
+  partsOf,
+  seriesNav,
+  type Part,
+  type SeriesNav as Nav,
+} from "@/lib/series"
+import { formatDate } from "@/lib/utils"
 import { Image } from "astro:assets"
 import { getEntries, render, type CollectionEntry } from "astro:content"
 
 export async function getStaticPaths() {
-  const posts = await getPosts()
-  const series = await getSubposts()
-  return posts.flatMap((parent, i) => {
-    const chain = [parent, ...(series.get(parent.id) ?? [])]
-    return chain.map((post) => ({
+  const entries = await getBlogEntries()
+  const items = await getFeed()
+  const posts = items.filter(({ series }) => !series).map(({ post }) => post)
+  return items.map(({ post }) => {
+    const nav = seriesNav(entries, post.id)
+    const i = posts.indexOf(post)
+    return {
       params: { id: post.id },
-      props: { post, chain, prev: posts[i + 1], next: posts[i - 1] },
-    }))
+      props: {
+        post,
+        nav,
+        parts: nav ? [] : partsOf(entries, post.id),
+        prev: nav ? nav.prev : posts[i + 1],
+        next: nav ? nav.next : posts[i - 1],
+      },
+    }
   })
 }
 
+type Post = CollectionEntry<"blog">
 type Props = {
-  post: CollectionEntry<"blog">
-  chain: CollectionEntry<"blog">[]
-  prev?: CollectionEntry<"blog">
-  next?: CollectionEntry<"blog">
+  post: Post
+  nav?: Nav<Post>
+  parts: Part<Post>[]
+  prev?: Post
+  next?: Post
 }
 
-const { post, chain, prev, next } = Astro.props
-const [parent] = chain
-const rendered = await Promise.all(
-  chain.map(async (entry) => ({
-    entry,
-    ...(await render(entry)),
-    authors: await getEntries(entry.data.authors),
-    minutes: readingTime(entry.body ?? ""),
-  })),
+const { post, nav, parts, prev, next } = Astro.props
+const { Content, headings } = await render(post)
+const authors = await getEntries(post.data.authors)
+const minutes = readingTime(post.body ?? "")
+
+const tocHeadings = headings.filter(
+  ({ depth, text }) => depth >= 2 && depth <= 4 && text.trim(),
 )
 
-const sections = rendered.map(({ entry, headings }, i) => ({
-  id: i === 0 ? undefined : subpostSlug(entry.id),
-  label: entry.data.title,
-  open: entry.id === post.id,
-  headings: headings.filter(
-    ({ depth, text }) => depth >= 2 && depth <= 4 && text.trim(),
-  ),
-}))
-const hasToc =
-  sections.length > 1 || sections.some(({ headings }) => headings.length > 0)
-
-const crumbs = [{ label: parent.data.title, href: `/blog/${parent.id}` }]
-if (isSubpost(post.id)) {
-  crumbs.push({ label: post.data.title, href: `/blog/${post.id}` })
-}
+const crumbs = nav
+  ? [
+      { label: nav.parent.data.title, href: `/blog/${nav.parent.id}` },
+      { label: post.data.title, href: `/blog/${post.id}` },
+    ]
+  : [{ label: post.data.title, href: `/blog/${post.id}` }]
 ---
 
 <Layout crumbs={crumbs}>
-  <MetaPost
-    slot="head"
-    post={post}
-    canonical={isSubpost(post.id) ? `/blog/${parent.id}` : undefined}
-  />
-  {hasToc && (
+  <MetaPost slot="head" post={post} />
+  {tocHeadings.length > 0 && (
       <TableOfContents
         slot="toc"
-        title={parent.data.title}
-        sections={sections}
+        title={post.data.title}
+        sections={[{ label: post.data.title, headings: tocHeadings }]}
       />
     )}
   <PostActions slot="actions" prev={prev} next={next} />
   <ReadingProgress />
   <ScrollToTop floating />
   <CaptureStepper />
-  {rendered.map(({ entry, Content, authors, minutes }, i) => (
-      <article
-        id={i === 0 ? undefined : subpostSlug(entry.id)}
-        data-url={`/blog/${entry.id}`}
-        data-title={pageTitle(entry.data.title)}
-        data-embedded={i > 0 || undefined}
-      >
-        <header>
-          <h1>{entry.data.title}</h1>
-          <post-meta>
-            {authors.length > 0 && (
+  <article>
+    <header>
+      {nav && (
+            <series-label>
+              <a href={`/blog/${nav.parent.id}`}>{nav.parent.data.title}</a>
+              <span>Part {nav.number}</span>
+            </series-label>
+          )}
+      <h1>{post.data.title}</h1>
+      <post-meta>
+        {authors.length > 0 && (
               <post-authors>
                 <author-avatars>
                   {authors.map((author) => (
@@ -105,53 +107,55 @@ if (isSubpost(post.id)) {
                 </author-names>
               </post-authors>
             )}
-            <time datetime={entry.data.date.toISOString()}
-              >{formatDate(entry.data.date)}</time
-            >
-            <read-time>{minutes} min read</read-time>
-            {entry.data.tags && (
+        <time datetime={post.data.date.toISOString()}
+          >{formatDate(post.data.date)}</time
+        >
+        <read-time>{minutes} min read</read-time>
+        {post.data.tags && (
               <post-tags>
-                {entry.data.tags.map((tag) => (
+                {post.data.tags.map((tag) => (
                   <a href={`/tags/${tag}`}>#{tag}</a>
                 ))}
               </post-tags>
             )}
-          </post-meta>
-          <p>{entry.data.description}</p>
-        </header>
-        {entry.data.image && (
+      </post-meta>
+      <p>{post.data.description}</p>
+    </header>
+    {post.data.image && (
           <post-banner>
             <Image
-              src={entry.data.image}
-              alt={entry.data.title}
+              src={post.data.image}
+              alt={post.data.title}
               width={1200}
               height={630}
-              priority={entry.id === post.id || undefined}
+              priority
             />
           </post-banner>
         )}
-        <prose-content>
-          <Content />
-        </prose-content>
-      </article>
-    ))}
-  {chain.length > 1 && <SeriesReader />}
+    <prose-content>
+      <Content />
+    </prose-content>
+    {parts.length > 0 && <SeriesParts parts={parts} />}
+    {nav && <SeriesNav nav={nav} />}
+  </article>
 </Layout>
 
 <style>
-  article[data-embedded] {
-    margin-block-start: var(--space-xl);
-    padding-block-start: var(--space-xl);
-    border-block-start: 2px solid var(--border);
-    scroll-margin-block-start: calc(-2px - 0.2 * var(--step-2));
-
-    header h1 {
-      font-size: var(--step-2);
-    }
-  }
-
   header {
     margin-block-end: var(--space-m);
+
+    series-label {
+      display: flex;
+      gap: var(--space-3xs);
+      margin-block-end: var(--space-3xs);
+      font-size: var(--step--1);
+      color: var(--muted-foreground);
+
+      span::before {
+        content: "·";
+        margin-inline-end: var(--space-3xs);
+      }
+    }
 
     h1 {
       font-size: var(--step-3);

@@ -13,7 +13,6 @@ import {
   DEFAULT_ROOT as CAPTURE_ROOT,
 } from "./src/lib/capture-directive"
 import { externalLinks } from "./src/lib/external-links"
-import { headingNamespace } from "./src/lib/heading-namespace"
 import { headingAnchors } from "./src/lib/heading-anchors"
 
 export default defineConfig({
@@ -24,9 +23,7 @@ export default defineConfig({
     captureCheck("./src/content", CAPTURE_ROOT),
     sitemap({
       filter: (page) =>
-        !/\/blog\/[^/]+\/[^/]+\/?$/.test(page) &&
-        !/\/authors\/[^/]+\/?$/.test(page) &&
-        !page.includes("/tags/"),
+        !/\/authors\/[^/]+\/?$/.test(page) && !page.includes("/tags/"),
     }),
   ],
   markdown: {
@@ -39,12 +36,7 @@ export default defineConfig({
         inlineExpressiveCode,
         temmlMath,
       ],
-      hastPlugins: [
-        externalLinks,
-        blockExpressiveCode,
-        headingNamespace,
-        headingAnchors,
-      ],
+      hastPlugins: [externalLinks, blockExpressiveCode, headingAnchors],
     }),
   },
 })
