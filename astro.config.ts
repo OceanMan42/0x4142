@@ -16,7 +16,7 @@ import { externalLinks } from "./src/lib/external-links"
 import { headingAnchors } from "./src/lib/heading-anchors"
 
 export default defineConfig({
-  site: "https://0x4142.com",
+  site: "https://blog.0x4142.com",
   compressHTML: true,
   // Matches html_handling in wrangler.jsonc: pages live at /blog/post.
   trailingSlash: "never",
