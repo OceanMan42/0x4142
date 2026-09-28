@@ -70,6 +70,7 @@ const projects = defineCollection({
       image: image().optional(),
       startDate: z.coerce.date().optional(),
       endDate: z.coerce.date().optional(),
+      draft: z.boolean().optional(),
     }),
 })
 

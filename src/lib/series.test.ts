@@ -1,5 +1,12 @@
 import { describe, expect, it } from "vitest"
-import { feed, feedTitle, isPart, partsOf, seriesNav } from "./series"
+import {
+  feed,
+  featuredSeries,
+  feedTitle,
+  isPart,
+  partsOf,
+  seriesNav,
+} from "./series"
 
 const entry = (id: string, date: string, order?: number) => ({
   id,
@@ -98,5 +105,24 @@ describe("feedTitle", () => {
 
   it("leaves other posts as they are", () => {
     expect(feedTitle({ post: solo })).toBe("SOLO")
+  })
+})
+
+describe("featuredSeries", () => {
+  it("lists series with released parts, most recently updated first", () => {
+    const other = entry("other", "2026-11-01")
+    const otherPart = entry("other/p", "2026-11-02", 1)
+    const series = featuredSeries([...all, other, otherPart])
+    expect(series.map(({ parent }) => parent.id)).toEqual(["other", "re"])
+    expect(series[1].parts.map(({ entry }) => entry.id)).toEqual([
+      "re/one",
+      "re/two",
+      "re/three",
+    ])
+  })
+
+  it("leaves out posts without parts and series without a home", () => {
+    const ids = featuredSeries(all).map(({ parent }) => parent.id)
+    expect(ids).toEqual(["re"])
   })
 })

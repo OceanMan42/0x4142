@@ -1,0 +1,82 @@
+---
+import type { Series } from "@/lib/series"
+import type { CollectionEntry } from "astro:content"
+
+type Props = { series: Series<CollectionEntry<"blog">> }
+
+const { parent, parts } = Astro.props.series
+const released = `${parts.length} ${parts.length === 1 ? "part" : "parts"} released`
+---
+
+<series-panel>
+  <header>
+    <span>Series · {released}</span>
+    <h3><a href={`/blog/${parent.id}`}>{parent.data.title}</a></h3>
+    <p>{parent.data.description}</p>
+  </header>
+  <ol>
+    {parts.map(({ entry, number }) => (
+      <li>
+        <span>{String(number).padStart(2, "0")}</span>
+        <a href={`/blog/${entry.id}`}>{entry.data.title}</a>
+      </li>
+    ))}
+  </ol>
+  <a href={`/blog/${parent.id}`} data-start>Start reading →</a>
+</series-panel>
+
+<style>
+  series-panel {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
+    padding: var(--space-s) var(--space-m);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+
+  header {
+    span {
+      font-family: var(--font-mono);
+      font-size: var(--step--1);
+      color: var(--muted-foreground);
+    }
+
+    h3 {
+      margin-block-start: var(--space-3xs);
+      font-size: var(--step-1);
+      line-height: calc(var(--leading-offset) + 1em);
+      font-weight: var(--font-weight-medium);
+    }
+
+    p {
+      margin-block-start: var(--space-3xs);
+      color: var(--muted-foreground);
+    }
+  }
+
+  ol {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3xs);
+    padding: 0;
+    list-style: none;
+
+    li {
+      display: flex;
+      gap: var(--space-xs);
+      align-items: baseline;
+    }
+
+    span {
+      font-family: var(--font-mono);
+      font-size: var(--step--1);
+      color: var(--muted-foreground);
+    }
+  }
+
+  [data-start] {
+    align-self: flex-start;
+    font-weight: var(--font-weight-medium);
+  }
+</style>

@@ -2,12 +2,9 @@
 import MetaPage from "@/components/MetaPage.astro"
 import ProjectCard from "@/components/ProjectCard.astro"
 import Layout from "@/layouts/Layout.astro"
-import { getCollection } from "astro:content"
+import { getProjects } from "@/lib/content"
 
-const projects = (await getCollection("projects")).sort(
-  (a, b) =>
-    (b.data.startDate?.getTime() ?? 0) - (a.data.startDate?.getTime() ?? 0),
-)
+const projects = await getProjects()
 ---
 
 <Layout>

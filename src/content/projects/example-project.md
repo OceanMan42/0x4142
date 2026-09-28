@@ -5,4 +5,5 @@ link: "https://example.com"
 image: "./placeholder.png"
 tags: ["placeholder"]
 startDate: "2026-09-01"
+draft: true
 ---

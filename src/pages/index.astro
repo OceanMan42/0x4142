@@ -1,12 +1,18 @@
 ---
 import BlogCard from "@/components/BlogCard.astro"
+import CTFCard from "@/components/CTFCard.astro"
 import MetaPage from "@/components/MetaPage.astro"
+import ProjectCard from "@/components/ProjectCard.astro"
+import SeriesPanel from "@/components/SeriesPanel.astro"
 import SocialIcons from "@/components/SocialIcons.astro"
 import Layout from "@/layouts/Layout.astro"
 import { SITE, SOCIALS } from "@/consts"
-import { getFeed } from "@/lib/content"
+import { getCTFs, getFeed, getProjects, getSeries } from "@/lib/content"
 
+const series = await getSeries()
 const recentPosts = (await getFeed()).slice(0, 5)
+const writeups = (await getCTFs()).slice(0, 3)
+const projects = (await getProjects()).slice(0, 3)
 ---
 
 <Layout>
@@ -14,22 +20,50 @@ const recentPosts = (await getFeed()).slice(0, 5)
   <home-intro>
     <h1>{SITE.title}</h1>
     {SITE.tagline && <p data-tagline>{SITE.tagline}</p>}
-    <!-- Placeholder bio, replace with your own -->
     <p>
-      Hi, I'm 0x4142. I take things apart to see how they work, then write it
-      down. Expect security write-ups, CTF solutions, and notes on the projects
-      I'm building.
+      I reverse engineer binaries, play CTFs, and write up what I learn along
+      the way, from how a compiler lays out <code>main</code> to how a stack
+      frame gets smashed. The handle is my initials in hex:
+      <code>0x41 0x42</code> is "AB" in ASCII.
     </p>
     <SocialIcons links={SOCIALS} />
   </home-intro>
 
+  {series.length > 0 && (
+      <home-section>
+        <h2>Series</h2>
+        {series.map((s) => <SeriesPanel series={s} />)}
+      </home-section>
+    )}
+
   {recentPosts.length > 0 && (
-      <home-posts>
+      <home-section>
         <h2>Recent posts</h2>
         <ul>
           {recentPosts.map((item) => <BlogCard {...item} />)}
         </ul>
-      </home-posts>
+        <a href="/blog" data-all>All posts →</a>
+      </home-section>
+    )}
+
+  {writeups.length > 0 && (
+      <home-section>
+        <h2>CTF write-ups</h2>
+        <ul>
+          {writeups.map((ctf) => <CTFCard ctf={ctf} />)}
+        </ul>
+        <a href="/ctfs" data-all>All write-ups →</a>
+      </home-section>
+    )}
+
+  {projects.length > 0 && (
+      <home-section>
+        <h2>Projects</h2>
+        <ul>
+          {projects.map((project) => <ProjectCard project={project} />)}
+        </ul>
+        <a href="/projects" data-all>All projects →</a>
+      </home-section>
     )}
 </Layout>
 
@@ -60,21 +94,27 @@ const recentPosts = (await getFeed()).slice(0, 5)
     }
   }
 
-  home-posts {
-    display: block;
+  home-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
     margin-block-start: var(--space-xl);
 
     h2 {
       font-size: var(--step-1);
       font-weight: var(--font-weight-medium);
       color: var(--foreground);
-      margin-block-end: var(--space-s);
     }
 
     ul {
       display: flex;
       flex-direction: column;
       gap: var(--space-m);
+    }
+
+    [data-all] {
+      align-self: flex-start;
+      font-size: var(--step--1);
     }
   }
 </style>

@@ -1,6 +1,11 @@
 import { SITE } from "@/consts"
 import { getCollection, type CollectionEntry } from "astro:content"
-import { feed, type FeedItem } from "@/lib/series"
+import {
+  feed,
+  featuredSeries,
+  type FeedItem,
+  type Series,
+} from "@/lib/series"
 
 export type BlogFeedItem = FeedItem<CollectionEntry<"blog">>
 
@@ -33,6 +38,20 @@ export async function getBlogEntries(): Promise<CollectionEntry<"blog">[]> {
 /** Posts and series parts, newest first. See `feed` in series.ts. */
 export async function getFeed(): Promise<BlogFeedItem[]> {
   return feed(await getBlogEntries())
+}
+
+/** Projects, newest first by start date. Drafts are hidden everywhere. */
+export async function getProjects(): Promise<CollectionEntry<"projects">[]> {
+  const projects = await getCollection("projects", ({ data }) => !data.draft)
+  return projects.sort(
+    (a, b) =>
+      (b.data.startDate?.getTime() ?? 0) - (a.data.startDate?.getTime() ?? 0),
+  )
+}
+
+/** Series with released parts, most recently updated first. */
+export async function getSeries(): Promise<Series<CollectionEntry<"blog">>[]> {
+  return featuredSeries(await getBlogEntries())
 }
 
 export async function getCTFs(): Promise<CollectionEntry<"ctfs">[]> {

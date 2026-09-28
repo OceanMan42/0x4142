@@ -83,3 +83,19 @@ export function feedTitle<T extends Entry>({ post, series }: FeedItem<T>) {
     ? `${series.parent.data.title}, Part ${series.number}: ${post.data.title}`
     : post.data.title
 }
+
+export type Series<T extends Entry> = { parent: T; parts: Part<T>[] }
+
+/** Every series with at least one part, most recently updated first. */
+export function featuredSeries<T extends Entry>(entries: T[]): Series<T>[] {
+  const latest = ({ parent, parts }: Series<T>) =>
+    Math.max(
+      parent.data.date.getTime(),
+      ...parts.map(({ entry }) => entry.data.date.getTime()),
+    )
+  return entries
+    .filter(({ id }) => !isPart(id))
+    .map((parent) => ({ parent, parts: partsOf(entries, parent.id) }))
+    .filter(({ parts }) => parts.length > 0)
+    .sort((a, b) => latest(b) - latest(a))
+}

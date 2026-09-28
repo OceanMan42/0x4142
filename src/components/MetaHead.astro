@@ -33,11 +33,28 @@ import { SITE } from "@/consts"
     media="(prefers-color-scheme: light)"
   >
 
-  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="shortcut icon" href="/favicon.ico">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" type="image/png" href="/favicon-96x96.png?v=4" sizes="96x96">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=4">
+  <link rel="shortcut icon" href="/favicon.ico?v=4">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=4">
+  <link rel="manifest" href="/site.webmanifest?v=4">
+  <script is:inline>
+    // Blink the favicon's cursor like a terminal prompt by swapping between
+    // the "on" and "off" SVG frames. Stays on for reduced motion.
+    ;(() => {
+      if (matchMedia("(prefers-reduced-motion: reduce)").matches) return
+      const icon = document.querySelector('link[rel="icon"][type="image/svg+xml"]')
+      if (!icon) return
+      // Leave the SVG as the only candidate so its frames are what the tab shows.
+      for (const other of document.querySelectorAll('link[rel="icon"]:not([type="image/svg+xml"])')) other.remove()
+      const frames = [icon.href, icon.href.replace("/favicon.svg", "/favicon-off.svg")]
+      let frame = 0
+      setInterval(() => {
+        frame ^= 1
+        icon.href = frames[frame]
+      }, 530)
+    })()
+  </script>
 
   <link rel="sitemap" href="/sitemap-index.xml">
   <link
