@@ -45,8 +45,9 @@ import { SITE } from "@/consts"
       if (matchMedia("(prefers-reduced-motion: reduce)").matches) return
       const icon = document.querySelector('link[rel="icon"][type="image/svg+xml"]')
       if (!icon) return
-      // Leave the SVG as the only candidate so its frames are what the tab shows.
-      for (const other of document.querySelectorAll('link[rel="icon"]:not([type="image/svg+xml"])')) other.remove()
+      // Leave the SVG as the only candidate so its frames are what the tab
+      // shows. rel~="icon" also matches the .ico's rel="shortcut icon".
+      for (const other of document.querySelectorAll('link[rel~="icon"]:not([type="image/svg+xml"])')) other.remove()
       const frames = [icon.href, icon.href.replace("/favicon.svg", "/favicon-off.svg")]
       let frame = 0
       setInterval(() => {
