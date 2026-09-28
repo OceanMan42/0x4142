@@ -100,6 +100,12 @@ const projects = (await getProjects()).slice(0, 3)
       :global(p + p) {
         margin-block-start: var(--space-s);
       }
+
+      /* Same visible link style as inside posts. */
+      :global(a) {
+        --underline: var(--muted-foreground);
+        color: var(--foreground);
+      }
     }
 
     [data-tagline] + home-bio {
