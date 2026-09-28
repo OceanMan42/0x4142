@@ -5,6 +5,9 @@ import RSS from "@/assets/icons/rss.svg"
 
 export const SITE = {
   title: "0x4142",
+  // Id of the site owner in src/content/authors/. The body of that file is
+  // the homepage bio.
+  author: "0x4142",
   description: "Security write-ups, CTF write-ups, and projects by 0x4142.",
   tagline: "",
   locale: "en-US",

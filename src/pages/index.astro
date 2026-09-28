@@ -8,6 +8,10 @@ import SocialIcons from "@/components/SocialIcons.astro"
 import Layout from "@/layouts/Layout.astro"
 import { SITE, SOCIALS } from "@/consts"
 import { getCTFs, getFeed, getProjects, getSeries } from "@/lib/content"
+import { getEntry, render } from "astro:content"
+
+const owner = await getEntry("authors", SITE.author)
+const Bio = owner?.body?.trim() ? (await render(owner)).Content : undefined
 
 const series = await getSeries()
 const recentPosts = (await getFeed()).slice(0, 5)
@@ -20,12 +24,11 @@ const projects = (await getProjects()).slice(0, 3)
   <home-intro>
     <h1>{SITE.title}</h1>
     {SITE.tagline && <p data-tagline>{SITE.tagline}</p>}
-    <p>
-      I reverse engineer binaries, play CTFs, and write up what I learn along
-      the way, from how a compiler lays out <code>main</code> to how a stack
-      frame gets smashed. The handle is my initials in hex:
-      <code>0x41 0x42</code> is "AB" in ASCII.
-    </p>
+    {Bio && (
+        <home-bio>
+          <Bio />
+        </home-bio>
+      )}
     <SocialIcons links={SOCIALS} />
   </home-intro>
 
@@ -88,11 +91,18 @@ const projects = (await getProjects()).slice(0, 3)
       font-size: var(--step-0);
     }
 
-    > p:not([data-tagline]) {
+    /* Rendered from the owner's author file, so the paragraphs carry no
+       scoping attribute; style them through :global. */
+    home-bio {
+      display: block;
       color: var(--muted-foreground);
+
+      :global(p + p) {
+        margin-block-start: var(--space-s);
+      }
     }
 
-    [data-tagline] + p {
+    [data-tagline] + home-bio {
       margin-block-start: var(--space-m);
     }
 
